@@ -1,0 +1,73 @@
+---
+
+- name: Install Python MySQL Module
+  become: true
+  ansible.builtin.pip:
+    name: PyMySQL
+    state: present
+
+- name: Install Percona-Release
+  become: true
+  ansible.builtin.yum:
+    name: https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    state: present
+
+- name: Enable Percona Xtradb Cluster Repo
+  become: true
+  command: percona-release setup -y {{ percona_product_code }}
+
+- name: Install Percona Xtradb Cluster
+  become: true
+  ansible.builtin.yum:
+    name: "{{ percona_package_name }}"
+    state: present
+    update_cache: true
+
+- name: Start MySQL
+  become: true
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: true
+
+- name: Get Temporary Password
+  become: true
+  command: "grep -oP '(?<=A temporary password is generated for root@localhost: )(.*)$' /var/log/mysqld.log"
+  register: percona_temporary_password
+  ignore_errors: true
+  changed_when: false
+
+- name: Set MySQL User Password
+  when: not percona_temporary_password.failed
+  command: >
+    mysql -u {{ percona_mysql_username }} -p'{{ percona_temporary_password.stdout }}' --connect-expired-password
+    -e "ALTER USER '{{ percona_mysql_username }}'@'localhost' IDENTIFIED BY '{{ percona_mysql_password }}'"
+  ignore_errors: true
+  no_log: true
+
+- name: Check MySQL User/Password
+  community.mysql.mysql_user:
+    login_user: "{{ percona_mysql_username }}"
+    login_password: "{{ percona_mysql_password }}"
+    name: "{{ percona_mysql_username }}"
+    host: localhost
+    password: "{{ percona_mysql_password }}"
+    state: present
+
+- name: Create SST User
+  community.mysql.mysql_user:
+    login_user: "{{ percona_mysql_username }}"
+    login_password: "{{ percona_mysql_password }}"
+    name: "{{ percona_sst_username }}"
+    host: localhost
+    password: "{{ percona_sst_password }}"
+    state: present
+    priv: "*.*:RELOAD,LOCK TABLES,PROCESS,REPLICATION CLIENT"
+
+- name: Template Wsrep Config file
+  become: true
+  template:
+    src: wsrep.cnf
+    dest: /etc/my.cnf.d/wsrep.cnf
+    mode: 0600
+  notify: Restart MySQL

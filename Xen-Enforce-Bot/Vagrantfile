@@ -1,0 +1,29 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "bento/amazonlinux-2"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.cpus = 2
+    vb.memory = 2048
+  end
+
+  config.vm.provision :shell, inline: <<-SHELL
+    set -xeuo pipefail
+    yum install -y python python-pip
+    pip install ansible~=2.10.3
+    ansible-galaxy install -r /vagrant/playbooks/requirements.yml
+  SHELL
+
+  config.vm.provision :ansible_local do |ansible|
+      ansible.install = false
+      ansible.playbook = 'playbooks/vagrant.yml'
+      ansible.extra_vars = {
+          ansible_python_interpreter: '/usr/bin/python2',
+      }
+  end
+
+end
