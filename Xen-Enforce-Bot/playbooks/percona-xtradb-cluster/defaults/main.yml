@@ -5,4 +5,4 @@ percona_package_name: Percona-XtraDB-Cluster-57
 percona_mysql_username: root
 percona_mysql_password:
 percona_sst_username: sstuser
-percona_sst_password: 
+percona_sst_password:
