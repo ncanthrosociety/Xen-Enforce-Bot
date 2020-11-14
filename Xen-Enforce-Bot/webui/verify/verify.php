@@ -36,7 +36,7 @@
         $secret = 'your_secret_key';
         $verifyResponse = file_get_contents('https://hcaptcha.com/siteverify?secret='.$secret.'&response='.$_POST['h-captcha-response'].'&remoteip='.$_SERVER['REMOTE_ADDR']);
         $responseData = json_decode($verifyResponse);
-        if($responseData->success)
+        if($responseData->success == false)
         {
             header('Location: ./index.php' . "?success=0&reason=Recaptcha validation failed&actid=$actid");
         }
