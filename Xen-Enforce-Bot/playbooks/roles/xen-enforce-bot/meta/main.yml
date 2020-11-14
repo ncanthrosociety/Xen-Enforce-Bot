@@ -1,0 +1,7 @@
+galaxy_info:
+  author: Faelan Galanti
+  description: Install Xen Enforce Bot
+  company: NCAS
+  min_ansible_version: 2.1
+  galaxy_tags: []
+dependencies: []

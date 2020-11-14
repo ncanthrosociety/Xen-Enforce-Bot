@@ -1,0 +1,17 @@
+---
+# defaults file for /vagrant/playbooks/roles/xen-enforce-bot
+xen_api_endpoint:
+xen_mysql_host: 127.0.0.1
+xen_mysql_root_username: root
+xen_mysql_root_password:
+xen_mysql_user_username: enforce_bot
+xen_mysql_user_host: localhost
+xen_mysql_user_password:
+xen_mysql_database: xenfbot
+xen_mysql_verify_table: verify
+xen_recaptcha_sitekey:
+xen_recaptcha_secret:
+xen_hcaptcha_sitekey:
+xen_hcaptcha_secret:
+xen_is_vagrant: false
+xen_telegram_api_key:

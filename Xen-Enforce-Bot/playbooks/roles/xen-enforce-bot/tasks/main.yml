@@ -1,0 +1,103 @@
+---
+# tasks file for /vagrant/playbooks/roles/xen-enforce-bot
+
+
+- name: Copy Xen Enforce Bot Source
+  become: true
+  when: not xen_is_vagrant
+  ansible.builtin.copy:
+    src: ../../../../
+    dest: /usr/local/xen-enforce-bot
+
+- name: Create MySQL Database
+  community.mysql.mysql_db:
+    login_user: "{{ xen_mysql_root_username }}"
+    login_password: "{{ xen_mysql_root_password }}"
+    name: "{{ xen_mysql_database }}"
+    state: import
+    target: /usr/local/xen-enforce-bot/xenfbot4schema.sql
+  no_log: true
+
+- name: Create MySQL User
+  community.mysql.mysql_user:
+    login_user: "{{ xen_mysql_root_username }}"
+    login_password: "{{ xen_mysql_root_password }}"
+    name: "{{ xen_mysql_user_username }}"
+    host: "{{ xen_mysql_user_host }}"
+    password: "{{ xen_mysql_user_password }}"
+    state: present
+    priv: "{{ xen_mysql_database }}.*:ALL"
+
+- name: Add Microsoft RPM
+  become: true
+  ansible.builtin.yum:
+    name: https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
+    state: present
+
+- name: Install Packages
+  become: true
+  ansible.builtin.yum:
+    name:
+      - httpd
+      - php
+      - php-mysqlnd
+      - dotnet-sdk-3.1
+    state: present
+
+- name: Start Apache
+  become: true
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: Create UI Directory Structure
+  become: true
+  ansible.builtin.file:
+    name: "/var/www/html/xen-enforce-bot/{{ item.path }}"
+    owner: apache
+    mode: 0700
+    state: directory
+  with_community.general.filetree: ../../../../webui
+  when: item.state == 'directory'
+
+- name: Template UI PHP Files
+  become: true
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    owner: apache
+    dest: "/var/www/html/xen-enforce-bot/{{ item.path }}"
+    mode: 0700
+  with_community.general.filetree: ../../../../webui
+  when: item.state == 'file' and item.path.endswith('.php')
+
+- name: Copy All Other UI Files
+  become: true
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    owner: apache
+    dest: "/var/www/html/xen-enforce-bot/{{ item.path }}"
+    mode: 0700
+  with_community.general.filetree: ../../../../webui
+  when: item.state == 'file' and not item.path.endswith('.php')
+
+- name: Compile Xen Enforce Bot
+  command:
+    cmd: dotnet build
+    chdir: /usr/local/xen-enforce-bot
+
+- name: Create Xen Enforce Bot Service File
+  become: true
+  ansible.builtin.template:
+    src: xen-enforce-bot.service
+    dest: /etc/systemd/system/xen-enforce-bot.service
+    mode: 0700
+  notify: Restart Xen Enforce Bot
+
+- name: Start Xen Enforce Bot Service
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: xen-enforce-bot
+    state: started
+    enabled: true

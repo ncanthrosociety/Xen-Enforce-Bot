@@ -1,7 +1,12 @@
 - hosts: all
   tasks:
-    - include_role:
+    - name: Install Percona XtraDB Cluster
+      include_role:
         name: percona-xtradb-cluster
 
+    # TODO Set timezzone.
     # TODO Configure S3 Backups
-    # TODO Configure Bot.
+
+    - name: Deploy Xen Enforce Bot
+      include_role:
+        name: xen-enforce-bot

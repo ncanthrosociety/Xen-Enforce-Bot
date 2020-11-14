@@ -1,0 +1,18 @@
+[Unit]
+Description=Xen Enforce Bot Service
+After=mysql.service
+
+[Service]
+Type=simple
+Restart=always
+WorkingDirectory=/usr/local/xen-enforce-bot/bin/Release/netcoreapp3.1
+ExecStart=/usr/bin/dotnet XenfbotDN.dll
+Environment="TGAPIKey={{ xen_telegram_api_key }}"
+Environment="MySQLHost={{ xen_mysql_host }}"
+Environment="MySQLUser={{ xen_mysql_user_username }}"
+Environment="MySQLPassword={{ xen_mysql_user_password }}"
+Environment="MySQLDatabase={{ xen_mysql_database }}"
+Environment="APIEndpoint={{ xen_api_endpoint | replace('%', '%%') }}"
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,14 @@
+---
+# handlers file for /vagrant/playbooks/roles/xen-enforce-bot
+
+- name: Restart httpd
+  become: true
+  ansible.builtin.service:
+    name: httpd
+    state: restarted
+
+- name: Restart Xen Enforce Bot
+  become: true
+  ansible.builtin.service:
+    name: xen-enforce-bot
+    state: restarted
