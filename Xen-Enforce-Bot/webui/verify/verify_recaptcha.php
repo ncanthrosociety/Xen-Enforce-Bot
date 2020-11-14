@@ -1,9 +1,9 @@
-<?php 
+<?php
 	define('USE_DATABASE',1);
 	include 'databank.php';
-	
-	$secret = "ADD SECRET HERE";
-	
+
+	$secret = "{{ xen_recaptcha_secret }}";
+
 	if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 		$ip = $_SERVER['HTTP_CLIENT_IP'];
 	} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -22,11 +22,11 @@
 		header('Location: ./index.php' . "?success=0&reason=No%20captcha%20token%20received&actid=$actid");
 		die("no response from captcha $ip");
 	}
-	
+
 	//echo ("actid $actid");
 	//echo ("gcap $resp");
-	
-	
+
+
 // extract data from the post
 // set POST variables
 $data = array(
@@ -58,13 +58,13 @@ if ($resp_dec->success==false) {
 	    echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 	    die();
 	}
-	
+
 	if ($stmt->affected_rows < 1) {
     	// to be successful, this needs to have altered exactly one row
 	    // this means that the query succeeded, but it did not alter exactly 1 row
     	die();
 	}
-	
+
 	header('Location: ./index.php' . "?success=1&reason=Successfully verified that you're human :)&actid=$actid");
 }
 ?>

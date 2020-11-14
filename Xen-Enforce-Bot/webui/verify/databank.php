@@ -1,17 +1,17 @@
- <?php 
+ <?php
 
-	if(!defined('USE_DATABASE')){ 
+	if(!defined('USE_DATABASE')){
 
 		echo '<img src="dbnoaccess.jpg" style="width:100%;height:100%">';
-		die(); 
+		die();
 
 	}
 
-	$host = "";
-	$user = "";
-	$password = "";
-	$dbdatabase = "";
-	$dbtable = "";
+	$host = "{{ xen_mysql_host }}";  // Cannot be localhost or new mysqli() will error.
+	$user = "{{ xen_mysql_user_username }}";
+	$password = "{{ xen_mysql_user_password }}";
+	$dbdatabase = "{{ xen_mysql_database }}";
+	$dbtable = "{{ xen_mysql_verify_table }}";
 
 
 
