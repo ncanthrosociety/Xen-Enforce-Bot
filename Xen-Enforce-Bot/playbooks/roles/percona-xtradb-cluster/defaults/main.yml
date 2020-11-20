@@ -6,3 +6,10 @@ percona_mysql_username: root
 percona_mysql_password:
 percona_sst_username: sstuser
 percona_sst_password:
+percona_ssl_dir: /etc/ssl/mysql
+percona_ssl_group: mysql-ssl
+percona_ssl_ca: "{{ percona_ssl_dir }}/ca.pem"
+percona_ssl_server_cert: "{{ percona_ssl_dir }}/server-cert.pem"
+percona_ssl_server_key: "{{ percona_ssl_dir }}/server-key.pem"
+percona_ssl_client_cert: "{{ percona_ssl_dir }}/client-cert.pem"
+percona_ssl_client_key: "{{ percona_ssl_dir }}/client-key.pem"

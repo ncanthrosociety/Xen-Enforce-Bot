@@ -11,6 +11,10 @@
 
 - name: Create MySQL Database
   community.mysql.mysql_db:
+    ca_cert: "{{ xen_mysql_ca }}"
+    client_cert: "{{ xen_mysql_client_cert }}"
+    client_key: "{{ xen_mysql_client_key }}"
+    check_hostname: false
     login_user: "{{ xen_mysql_root_username }}"
     login_password: "{{ xen_mysql_root_password }}"
     name: "{{ xen_mysql_database }}"
@@ -20,6 +24,10 @@
 
 - name: Create MySQL User
   community.mysql.mysql_user:
+    ca_cert: "{{ xen_mysql_ca }}"
+    client_cert: "{{ xen_mysql_client_cert }}"
+    client_key: "{{ xen_mysql_client_key }}"
+    check_hostname: false
     login_user: "{{ xen_mysql_root_username }}"
     login_password: "{{ xen_mysql_root_password }}"
     name: "{{ xen_mysql_user_username }}"
@@ -34,6 +42,10 @@
     name: https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
     state: present
 
+- name: Enable PHP 7.4
+  become: true
+  command: amazon-linux-extras enable php7.4
+
 - name: Install Packages
   become: true
   ansible.builtin.yum:
@@ -43,6 +55,13 @@
       - php-mysqlnd
       - dotnet-sdk-3.1
     state: present
+
+- name: Add Apache User to MySQL SSL Group
+  become: true
+  ansible.builtin.user:
+    name: apache
+    groups: "{{ xen_mysql_ssl_group }}"
+    append: true
 
 - name: Start Apache
   become: true

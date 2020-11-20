@@ -23,6 +23,70 @@
     state: present
     update_cache: true
 
+- name: Create MySQL SSL Group
+  become: true
+  ansible.builtin.group:
+    name: "{{ percona_ssl_group }}"
+    state: present
+
+- name: Add mysql to SSL Group
+  become: true
+  ansible.builtin.user:
+    name: mysql
+    groups: "{{ percona_ssl_group }}"
+    append: true
+
+- name: Add Ansible User to SSL Group
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: "{{ percona_ssl_group }}"
+    append: true
+
+- name: Create MySQL SSL Dir
+  become: true
+  ansible.builtin.file:
+    name: "{{ percona_ssl_dir }}"
+    state: directory
+    owner: root
+    group: "{{ percona_ssl_group }}"
+
+- name: Generate SSL/RSA Files
+  become: true
+  command: mysql_ssl_rsa_setup --datadir='{{ percona_ssl_dir }}'
+
+- name: Set SSL/RSA File Permissions
+  become: true
+  ansible.builtin.file:
+    name: "{{ percona_ssl_dir }}"
+    state: directory
+    owner: root
+    group: "{{ percona_ssl_group }}"
+    mode: 0770
+    recurse: true
+
+- name: Template Wsrep Config File
+  become: true
+  ansible.builtin.template:
+    src: wsrep.cnf
+    dest: /etc/my.cnf.d/wsrep.cnf
+    mode: 0600
+  notify: Restart MySQL
+
+- name: Template TLS Config File
+  become: true
+  ansible.builtin.template:
+    src: tls.cnf
+    dest: /etc/my.cnf.d/tls.cnf
+    mode: 0600
+  notify: Restart MySQL
+
+- name: Template Client Config File
+  ansible.builtin.template:
+    src: client.cnf
+    dest: "{{ ansible_env.HOME }}/.my.cnf"
+    mode: 0600
+
 - name: Start MySQL
   become: true
   ansible.builtin.service:
@@ -40,13 +104,18 @@
 - name: Set MySQL User Password
   when: not percona_temporary_password.failed
   command: >
-    mysql -u {{ percona_mysql_username }} -p'{{ percona_temporary_password.stdout }}' --connect-expired-password
+    mysql -u '{{ percona_mysql_username }}' -p'{{ percona_temporary_password.stdout }}' --connect-expired-password
+    --ssl-ca='{{ percona_ssl_ca }}' --ssl-cert='{{ percona_ssl_client_cert }}' --ssl-key='{{ percona_ssl_client_key }}'
     -e "ALTER USER '{{ percona_mysql_username }}'@'localhost' IDENTIFIED BY '{{ percona_mysql_password }}'"
   ignore_errors: true
   no_log: true
 
 - name: Check MySQL User/Password
   community.mysql.mysql_user:
+    ca_cert: "{{ percona_ssl_ca }}"
+    client_cert: "{{ percona_ssl_client_cert }}"
+    client_key: "{{ percona_ssl_client_key }}"
+    check_hostname: false
     login_user: "{{ percona_mysql_username }}"
     login_password: "{{ percona_mysql_password }}"
     name: "{{ percona_mysql_username }}"
@@ -56,6 +125,10 @@
 
 - name: Create SST User
   community.mysql.mysql_user:
+    ca_cert: "{{ percona_ssl_ca }}"
+    client_cert: "{{ percona_ssl_client_cert }}"
+    client_key: "{{ percona_ssl_client_key }}"
+    check_hostname: false
     login_user: "{{ percona_mysql_username }}"
     login_password: "{{ percona_mysql_password }}"
     name: "{{ percona_sst_username }}"
@@ -63,11 +136,3 @@
     password: "{{ percona_sst_password }}"
     state: present
     priv: "*.*:RELOAD,LOCK TABLES,PROCESS,REPLICATION CLIENT"
-
-- name: Template Wsrep Config file
-  become: true
-  template:
-    src: wsrep.cnf
-    dest: /etc/my.cnf.d/wsrep.cnf
-    mode: 0600
-  notify: Restart MySQL

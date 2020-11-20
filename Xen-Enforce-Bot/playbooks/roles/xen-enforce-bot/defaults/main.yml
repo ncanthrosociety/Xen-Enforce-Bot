@@ -1,6 +1,11 @@
 ---
 # defaults file for /vagrant/playbooks/roles/xen-enforce-bot
 xen_api_endpoint:
+xen_mysql_ssl_group: mysql-ssl
+xen_mysql_ssl_dir: "/etc/ssl/mysql"
+xen_mysql_ca: "{{ xen_mysql_ssl_dir }}/ca.pem"
+xen_mysql_client_cert: "{{ xen_mysql_ssl_dir }}/client-cert.pem"
+xen_mysql_client_key: "{{ xen_mysql_ssl_dir }}/client-key.pem"
 xen_mysql_host: 127.0.0.1
 xen_mysql_root_username: root
 xen_mysql_root_password:

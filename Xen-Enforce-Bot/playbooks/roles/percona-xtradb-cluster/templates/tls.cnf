@@ -1,0 +1,14 @@
+[mysqld]
+ssl_ca={{ percona_ssl_ca }}
+ssl_cert={{ percona_ssl_server_cert }}
+ssl_key={{ percona_ssl_server_key }}
+require_secure_transport=ON
+tls_version=TLSv1.2
+auto_generate_certs=ON
+sha256_password_auto_generate_rsa_keys=ON
+
+[client]
+user=root
+ssl_ca={{ percona_ssl_ca }}
+ssl_cert={{ percona_ssl_client_cert }}
+ssl_key={{ percona_ssl_client_key }}
