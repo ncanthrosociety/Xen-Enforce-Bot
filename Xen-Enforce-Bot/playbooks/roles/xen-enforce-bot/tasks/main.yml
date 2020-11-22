@@ -10,6 +10,7 @@
     dest: /usr/local/xen-enforce-bot
 
 - name: Create MySQL Database
+  become: true
   community.mysql.mysql_db:
     ca_cert: "{{ xen_mysql_ca }}"
     client_cert: "{{ xen_mysql_client_cert }}"
@@ -23,6 +24,7 @@
   no_log: true
 
 - name: Create MySQL User
+  become: true
   community.mysql.mysql_user:
     ca_cert: "{{ xen_mysql_ca }}"
     client_cert: "{{ xen_mysql_client_cert }}"
