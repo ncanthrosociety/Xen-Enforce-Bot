@@ -1,6 +1,6 @@
 ---
 # defaults file for percona-xtradb-cluster
-percona_product_code: pxc57
+percona_xtradb_cluster_repo: pxc-57
 percona_package_name: Percona-XtraDB-Cluster-57
 percona_mysql_username: root
 percona_mysql_password:

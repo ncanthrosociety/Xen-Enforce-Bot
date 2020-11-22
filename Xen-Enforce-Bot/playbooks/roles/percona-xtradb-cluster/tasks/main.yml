@@ -14,7 +14,7 @@
 
 - name: Enable Percona Xtradb Cluster Repo
   become: true
-  command: percona-release setup -y {{ percona_product_code }}
+  command: percona-release enable {{ percona_xtradb_cluster_repo }}
 
 - name: Install Percona Xtradb Cluster
   become: true
