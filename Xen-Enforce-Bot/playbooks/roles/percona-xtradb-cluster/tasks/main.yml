@@ -70,23 +70,19 @@
     mode: 0770
     recurse: true
 
-- name: Template Wsrep Config File
+- name: Template MySQL Server Config Files
   become: true
   ansible.builtin.template:
-    src: wsrep.cnf
-    dest: /etc/my.cnf.d/wsrep.cnf
+    src: "{{ item }}"
+    dest: /etc/my.cnf.d/{{ item }}
     mode: 0600
+  with_items:
+    - encryption.cnf
+    - tls.cnf
+    - wsrep.cnf
   notify: Restart MySQL
 
-- name: Template TLS Config File
-  become: true
-  ansible.builtin.template:
-    src: tls.cnf
-    dest: /etc/my.cnf.d/tls.cnf
-    mode: 0600
-  notify: Restart MySQL
-
-- name: Template Client Config File
+- name: Template MySQL Client Config Files
   ansible.builtin.template:
     src: client.cnf
     dest: "{{ ansible_env.HOME }}/.my.cnf"

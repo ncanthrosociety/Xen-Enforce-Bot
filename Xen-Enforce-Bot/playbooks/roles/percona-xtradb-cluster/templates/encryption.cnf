@@ -1,0 +1,6 @@
+[mysqld]
+early_plugin_load=keyring_file.so
+keyring-file-data={{ percona_keyring_file_data }}
+
+[xtrabackup]
+keyring-file-data={{ percona_keyring_file_data }}

@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `blacklist` (
   `user` bigint(20) NOT NULL DEFAULT '0',
   `why` text NOT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ENCRYPTION='Y';
 
 -- Data exporting was unselected.
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `cleanup` (
   `when` int(11) NOT NULL,
   `life` int(11) NOT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=53682 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=53682 DEFAULT CHARSET=utf8mb4 ENCRYPTION='Y';
 
 -- Data exporting was unselected.
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `configs` (
   `mediadelaytime` int(11) DEFAULT '30',
   `dontdeletejoinmessage` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`groupid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 ENCRYPTION='Y';
 
 -- Data exporting was unselected.
 
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `removals` (
   `cause` text,
   `when` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=25915 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=25915 DEFAULT CHARSET=utf8mb4 ENCRYPTION='Y';
 
 -- Data exporting was unselected.
 
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `verify` (
   `message` bigint(20) DEFAULT '0',
   `joinmessage` bigint(20) DEFAULT '0',
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=47316 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=47316 DEFAULT CHARSET=utf8mb4 ENCRYPTION='Y';
 
 -- Data exporting was unselected.
 
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `verify_doubt` (
   `user` bigint(20) DEFAULT NULL,
   `group` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ENCRYPTION='Y';
 
 -- Data exporting was unselected.
 
