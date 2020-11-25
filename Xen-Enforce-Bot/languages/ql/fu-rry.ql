@@ -16,12 +16,12 @@ verify/userKicked|{0} was wemoved fwom teh chat because dey faiwed uwu to vewify
 verify/userKickedDoubt| {0} was wemoved fwom teh chat -- if dey'we nyot a bot~ dey can wejoin owo in two minyutes. 
 
 #INFO 
-info/github|https://github.com/XAYRGA/Xen-Enforce-Bot/tree/Bone-Hurting-Juice
+info/github|https://github.com/ncanthrosociety/Xen-Enforce-Bot
 
 #BASIC
 basic/error/noPermission|I don't have pewmission uwu to pewfowm %s~ make suwe chu've given me uwu pewmission uwu to do dis~ ow disabwe teh featuwe %s
 basic/welcome|Wewcome uwu to xen enfowce bot owo! pwease take a moment uwu to wead teh instwuctions on teh bot~ ow visit teh github fur mowe infowmation
-basic/xenfbot|Xen Enforce Bot v{0} by https://github.com/XAYRGA/Xen-Enforce-Bot/tree/Bone-Hurting-Juice\n\nRunning translation for `{1}` version [{3}] by {2} \n\nCurrent bot contact: {4}.
+basic/xenfbot|Xen Enforce Bot v{0} by https://github.com/ncanthrosociety/Xen-Enforce-Bot\n\nRunning translation for `{1}` version [{3}] by {2} \n\nCurrent bot contact: {4}.
 basic/words/admin|Administrator
 basic/words/manual|Manual
 basic/commands/noPermission|Sowwy~ chu don't have pewmission uwu to pewfowm that action. 

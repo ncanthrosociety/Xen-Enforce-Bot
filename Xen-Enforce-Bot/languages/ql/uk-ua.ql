@@ -16,12 +16,12 @@ verify/userKicked|{0} було вилучено з чату, оскільки н
 verify/userKickedDoubt| {0} було вилучено з чату -- якщо це не боти, то вони зможуть приєднатися через дві хвилини. 
 verify/manualVerifyFail|Щоб скористатися цією функцією, потрібно відповісти на повідомлення.
 #INFO 
-info/github|https://github.com/XAYRGA/Xen-Enforce-Bot/tree/Bone-Hurting-Juice
+info/github|https://github.com/ncanthrosociety/Xen-Enforce-Bot
 
 #BASIC
 basic/error/noPermission|У мене немає дозволу на виконання %s, переконайтеся, що ви надали мені дозвіл або вимкніть цю функцію %s
 basic/welcome|Ласкаво просимо до бота Xen Enforce! Витратьте хвилинку, щоб прочитати інструкції для користування ботом, або відвідайте github для отримання додаткової інформації
-basic/xenfbot|Xen Enforce Bot v{0} від https://github.com/XAYRGA/Xen-Enforce-Bot/tree/Bone-Hurting-Juice\n\nЗапуск перекладу для `{1}` версії [{3}] від {2} \n\nПоточний контакт бота: {4}.
+basic/xenfbot|Xen Enforce Bot v{0} від https://github.com/ncanthrosociety/Xen-Enforce-Bot\n\nЗапуск перекладу для `{1}` версії [{3}] від {2} \n\nПоточний контакт бота: {4}.
 basic/words/admin|Адміністратор
 basic/commands/noPermission|Вибачте, у вас немає дозволу виконати цю дію.
 basic/commands/ok|Команда успішно виконана.

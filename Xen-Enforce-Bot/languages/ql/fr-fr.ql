@@ -8,20 +8,20 @@ VERSION	1.1
 locale/languageChanged|La langue a été modifiée avec succès en Français.
 locale/currentLang|La langue actuelle est le 'Français'
 locale/currentLangName|Français
-locale/sentence|Le renard brun rapide saute par dessus le chien paresseux. 
+locale/sentence|Le renard brun rapide saute par dessus le chien paresseux.
 
-#VERIFY 
+#VERIFY
 verify/userVerified|{0} a terminé la vérification avec succès.
 verify/userKicked|{0} a été supprimé du chat car il n'a pas pu être vérifié.
-verify/userKickedDoubt| {0} a été supprimé du chat - s'il ne s'agit pas d'un robot, il pourra revenir dans deux minutes. 
+verify/userKickedDoubt| {0} a été supprimé du chat - s'il ne s'agit pas d'un robot, il pourra revenir dans deux minutes.
 
-#INFO 
-info/github|https://github.com/XAYRGA/Xen-Enforce-Bot/tree/Bone-Hurting-Juice
+#INFO
+info/github|https://github.com/ncanthrosociety/Xen-Enforce-Bot
 
 #BASIC
 basic/error/noPermission|Je n'ai pas l'autorisation d'effectuer %s, assurez-vous que vous m'avez donné l'autorisation de le faire ou désactivez la fonctionnalité %s
 basic/welcome|Bienvenue dans le bot Xen Enforce! Veuillez prendre un moment pour lire les instructions sur le bot, ou visitez le github pour plus d'informations
-basic/xenfbot|Xen Enforce Bot v{0} par https://github.com/XAYRGA/Xen-Enforce-Bot/tree/Bone-Hurting-Juice\n\nTraduction en cours pour `{1}` version [{3}] Par {2} \n\nContact bot actuel: {4}.
+basic/xenfbot|Xen Enforce Bot v{0} par https://github.com/ncanthrosociety/Xen-Enforce-Bot\n\nTraduction en cours pour `{1}` version [{3}] Par {2} \n\nContact bot actuel: {4}.
 basic/words/admin|Administrateur
 basic/words/manual|Manuel
 basic/commands/noPermission|Désolé, vous n'êtes pas autorisé à effectuer cette action.
@@ -32,7 +32,7 @@ basic/commands/badArgs|Arguments non valides. Vérifiez le readme, les commandes
 #CONFIG
 config/success|Modification réussie! {0} à {1}
 config/dontUnderstandNumber|Je ne comprend pas la valeur '{0}', ceci doit être un nombre.
-config/somethingWrong|Pour une raison quelconque, je n’ai pas pu enregistrer la configuration. Veuillez contactez mon développeur. @xayrga
+config/somethingWrong|Pour une raison quelconque, je n’ai pas pu enregistrer la configuration. Veuillez contactez mon développeur.
 config/featureDisabled|Fonctionnalité '{0}' désactivé avec succès .
 config/featureEnabled|Fonctionnalité '{0}' activé avec succès.
 config/featureNotExist|La fonctionnalité '{0}' nexiste pas.
@@ -42,7 +42,7 @@ config/mediaTimeChanged|A réussi à modifier le délai des médias pour {0} heu
 config/messageHelp|L'attribut %ACTURL doit apparaître dans ce message. Vous pouvez également avoir %NAME et %DURATION.
 config/messageSet|Le message d'accueil a été modifié avec succès.
 
-#FEATURES 
+#FEATURES
 feature/attackOn|Mode d’attaque ACTIVÉ. Aucun nouveau membre sera accepté.
 feature/attackOff|Mode d’attaque DÉSACTIVÉ. Les nouveau membre pourrons être accepté.
 feature/attackMode/userKicked|{0} a été supprimé du chat -- Le mode d’attaque est activé, Aucun nouveau membre sera accepté.
@@ -55,9 +55,9 @@ feature/mediaDelayWarn|{0}, vous devez valider le captcha avant de pouvoir publi
 
 captcha/userWelcome|Bienvenue {0}!\n\nS’il vous plaît, veuillez prendre un moment afin de vérifier que vous n’êtes pas un bot en complétant rapidement le CAPTCHA suivant\n\nLien de validation: {2}\n\nVous avez {1} minutes pour valider ce captcha, Vous serez automatiquement expulsé si vous ne le valider pas dans le temps imparti.
 
-#CAPTCHA 
+#CAPTCHA
 
 
-#AUTOREM 
+#AUTOREM
 autorem/removedBecauseBot|{0} a été retiré du groupe parce qu'il ressemble à un bot.
 autorem/sorry|Hey %s, désolé de vous avoir éjecter du groupe. Votre profil ressemble beaucoup à celui d'un bot, et je ne pouvais prendre aucun risque. Essayez ce qui suit :\n1. Ajouter des icônes à votre profil\n2. Ajouter un @NomDutilisateur à votre profil si vous n’en avez pas.\n3. Rallongez votre Nom D'utilisateur.
