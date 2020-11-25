@@ -1,13 +1,28 @@
 ---
 # tasks file for /vagrant/playbooks/roles/xen-enforce-bot
 
+- when: not xen_is_vagrant and xen_clone_with_git
+  block:
+
+    - name: Install Git
+      become: true
+      ansible.builtin.yum:
+        name: git
+        state: present
+
+    - name: Clone Xen Enforce Bot Source
+      become: true
+      ansible.builtin.git:
+        repo: "{{ xen_git_repo }}"
+        dest: "{{ xen_bot_dir }}"
+
 
 - name: Copy Xen Enforce Bot Source
   become: true
-  when: not xen_is_vagrant
+  when: not xen_is_vagrant and not xen_clone_with_git
   ansible.builtin.copy:
-    src: ../../../../
-    dest: /usr/local/xen-enforce-bot
+    src: ../../../
+    dest: "{{ xen_bot_dir }}"
 
 - name: Create MySQL Database
   become: true
@@ -20,7 +35,7 @@
     login_password: "{{ xen_mysql_root_password }}"
     name: "{{ xen_mysql_database }}"
     state: import
-    target: /usr/local/xen-enforce-bot/xenfbot4schema.sql
+    target: "{{ xen_bot_dir }}/Xen-Enforce-Bot/xenfbot4schema.sql"
   no_log: true
 
 - name: Create MySQL User
@@ -105,7 +120,7 @@
 - name: Compile Xen Enforce Bot
   command:
     cmd: dotnet build
-    chdir: /usr/local/xen-enforce-bot
+    chdir: "{{ xen_bot_dir }}/Xen-Enforce-Bot"
 
 - name: Create Xen Enforce Bot Service File
   become: true

@@ -5,7 +5,7 @@ After=mysql.service
 [Service]
 Type=simple
 Restart=always
-WorkingDirectory=/usr/local/xen-enforce-bot/bin/Release/netcoreapp3.1
+WorkingDirectory={{ xen_bot_dir }}/Xen-Enforce-Bot/bin/Release/netcoreapp3.1
 ExecStart=/usr/bin/dotnet XenfbotDN.dll
 Environment="TGAPIKey={{ xen_telegram_api_key }}"
 Environment="MySQLHost={{ xen_mysql_host }}"

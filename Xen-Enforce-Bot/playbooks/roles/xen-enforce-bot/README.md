@@ -8,23 +8,26 @@ This role relies on the `community.general` and `community.mysql` collections.
 
 ## Role Variables
 
-| Variable                  | Type   | Default       | Description                                                                                        |
-| ------------------------- | ------ | ------------- | -------------------------------------------------------------------------------------------------- |
-| `xen_api_endpoint`        | string |               | Xen Enforce Bot UI template URL. See `config.example.ini` for the expected format.                 |
-| `xen_mysql_host`          | string | 127.0.0.1     | MySQL hostname.                                                                                    |
-| `xen_mysql_root_username` | string | `root`        | MySQL root/admin username.                                                                         |
-| `xen_mysql_root_password` | string |               | MySQL root/admin password.                                                                         |
-| `xen_mysql_user_username` | string | `enforce_bot` | MySQL Xen Enforce Bot username.                                                                    |
-| `xen_mysql_user_host`     | string | `localhost`   | MySQL Xen Enforce Bot user host. For use with MySQL's `user@host` restrictions.                    |
-| `xen_mysql_user_password` | string |               | MySQL Xen Enforce Bot user password.                                                               |
-| `xen_mysql_database`      | string | `xenfbot`     | MySQL Xen Enforce Bot database name. Should correspond to the in `xenfbot4schema.sql`.             |
-| `xen_mysql_verify_table`  | string | `verify`      | MySQL Xen Enforce Bot verification table. Should correspond to the schema in `xenfbot4schema.sql`. |
-| `xen_recaptcha_sitekey`   | string |               | [reCAPTCHA](https://developers.google.com/recaptcha/intro) sitekey.                                |
-| `xen_recaptcha_secret`    | string |               | [reCAPTCHA](https://developers.google.com/recaptcha/intro) secret.                                 |
-| `xen_hcaptcha_sitekey     | string |               | [hCaptcha](https://docs.hcaptcha.com/) sitekey.                                                    |
-| `xen_hcaptcha_secret`     | string |               | [hCaptcha](https://docs.hcaptcha.com/) secret.                                                     |
-| `xen_is_vagrant`          | bool   | `false`       | For use by vagrant to skip cloning the project (vagrant auto mounts into the vm).                  |
-| `xen_telegram_api_key`    | string |               | [Telegram](https://core.telegram.org/bots) API key from @Botfather.                                |
+| Variable                  | Type   | Default                                                | Description                                                                                                             |
+| ------------------------- | ------ | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `xen_bot_dir`             | string | /usr/local/xen-enforce-bot/                            | Remote file path to the Xen Enforce Bot Source.                                                                         |
+| `xen_git_repo`            | string | https://github.com/ncanthrosociety/Xen-Enforce-Bot.git | Git repo that can be used to clone bot source.                                                                          |
+| `xen_api_endpoint`        | string |                                                        | Xen Enforce Bot UI template URL. See `config.example.ini` for the expected format.                                      |
+| `xen_mysql_host`          | string | 127.0.0.1                                              | MySQL hostname.                                                                                                         |
+| `xen_mysql_root_username` | string | `root`                                                 | MySQL root/admin username.                                                                                              |
+| `xen_mysql_root_password` | string |                                                        | MySQL root/admin password.                                                                                              |
+| `xen_mysql_user_username` | string | `enforce_bot`                                          | MySQL Xen Enforce Bot username.                                                                                         |
+| `xen_mysql_user_host`     | string | `localhost`                                            | MySQL Xen Enforce Bot user host. For use with MySQL's `user@host` restrictions.                                         |
+| `xen_mysql_user_password` | string |                                                        | MySQL Xen Enforce Bot user password.                                                                                    |
+| `xen_mysql_database`      | string | `xenfbot`                                              | MySQL Xen Enforce Bot database name. Should correspond to the in `xenfbot4schema.sql`.                                  |
+| `xen_mysql_verify_table`  | string | `verify`                                               | MySQL Xen Enforce Bot verification table. Should correspond to the schema in `xenfbot4schema.sql`.                      |
+| `xen_recaptcha_sitekey`   | string |                                                        | [reCAPTCHA](https://developers.google.com/recaptcha/intro) sitekey.                                                     |
+| `xen_recaptcha_secret`    | string |                                                        | [reCAPTCHA](https://developers.google.com/recaptcha/intro) secret.                                                      |
+| `xen_hcaptcha_sitekey     | string |                                                        | [hCaptcha](https://docs.hcaptcha.com/) sitekey.                                                                         |
+| `xen_hcaptcha_secret`     | string |                                                        | [hCaptcha](https://docs.hcaptcha.com/) secret.                                                                          |
+| `xen_is_vagrant`          | bool   | `false`                                                | For use by vagrant to skip cloning the project (vagrant auto mounts into the vm).                                       |
+| `xen_telegram_api_key`    | string |                                                        | [Telegram](https://core.telegram.org/bots) API key from @Botfather.                                                     |
+| `xen_clone_with_git`      | bool   | `true`                                                 | When `xen_is_vagrant==false`: If `true`, clone bot source. If `false`, copy bot source via ssh (deploys local changes). |
 
 ## Example Playbook
 
