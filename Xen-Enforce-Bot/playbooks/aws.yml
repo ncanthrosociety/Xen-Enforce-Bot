@@ -1,6 +1,12 @@
 - hosts: all
   tasks:
 
+    - name: Install Pip
+      become: true
+      ansible.builtin.yum:
+        name: python-pip
+        state: present
+
     - name: Configure System Time
       include_role:
         name: timezone
@@ -9,8 +15,8 @@
       include_role:
         name: percona-xtradb-cluster
 
-    # TODO Configure Apache encryption.
-    # TODO Configure database encryption
+    # TODO Configure Apache TLS.
+    # TODO Configure database (signed) TLS.
     # TODO Configure S3 Backups
 
     - name: Deploy Xen Enforce Bot
