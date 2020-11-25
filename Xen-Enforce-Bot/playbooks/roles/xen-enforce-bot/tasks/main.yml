@@ -118,8 +118,9 @@
   when: item.state == 'file' and not item.path.endswith('.php')
 
 - name: Compile Xen Enforce Bot
+  become: true
   command:
-    cmd: dotnet build
+    cmd: dotnet build --configuration=Release
     chdir: "{{ xen_bot_dir }}/Xen-Enforce-Bot"
 
 - name: Create Xen Enforce Bot Service File
