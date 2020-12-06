@@ -1,0 +1,30 @@
+---
+# tasks file for roles/certbot
+
+- name: Install EPEL-Release
+  become: true
+  ansible.builtin.yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+
+- name: Install Apache SSL and Certbot Packages
+  become: true
+  ansible.builtin.yum:
+    name:
+      - mod_ssl
+      - certbot
+      - python2-certbot-apache
+    state: present
+
+- name: Run Certbot
+  become: true
+  command: certbot --non-interactive --apache --agree-tos -m '{{ certbot_email }}' --domains '{{ certbot_domain }}' --redirect
+  args:
+    creates: /etc/letsencrypt/live/{{ certbot_domain }}
+
+- name: Configure Certbot Renewal Cron Job
+  become: true
+  ansible.builtin.cron:
+    name: Renew Certs
+    hour: "0,12"
+    job: certbot renew --no-self-upgrade
