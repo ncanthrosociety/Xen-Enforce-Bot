@@ -82,7 +82,7 @@ namespace XenfbotDN
 
         public static void processIndividualUpdate(TGUpdate update)
         {
-            
+
             var msg = update.message;
             if (msg.from.is_bot == true) // Don't process updates from other bots
                 return;
@@ -101,7 +101,7 @@ namespace XenfbotDN
                     {
                         var cl1 = Localization.getLanguageInfo(langcode);
                         var cl = Localization.getStringLocalized(langcode, "locale/currentLangName");
-                        var smsg = Localization.getStringLocalized(langcode, "basic/xenfbot", " BRN 'MASTER' 4.0.8 (Noodle Dragon) ", cl, cl1.authors, cl1.version,"@xayrga");
+                        var smsg = Localization.getStringLocalized(langcode, "basic/xenfbot", " BRN 'MASTER' 4.0.8 (Noodle Dragon) ", cl, cl1.authors, cl1.version,"contact@ncanthrosociety.com");
                         smsg += "\n\n";
                         smsg += Localization.getStringLocalized(langcode, "basic/welcome");
 
