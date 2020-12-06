@@ -2,7 +2,9 @@
 # defaults file for /vagrant/playbooks/roles/xen-enforce-bot
 xen_api_endpoint:
 xen_bot_dir: /usr/local/xen-enforce-bot
+xen_enforce_https: false
 xen_git_repo: https://github.com/ncanthrosociety/Xen-Enforce-Bot.git
+xen_httpd_server_name: 127.0.0.1
 xen_mysql_ssl_group: mysql-ssl
 xen_mysql_ssl_dir: "/etc/ssl/mysql"
 xen_mysql_ca: "{{ xen_mysql_ssl_dir }}/ca.pem"

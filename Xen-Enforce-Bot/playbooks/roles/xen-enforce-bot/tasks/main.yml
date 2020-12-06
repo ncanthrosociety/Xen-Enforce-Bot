@@ -80,6 +80,13 @@
     groups: "{{ xen_mysql_ssl_group }}"
     append: true
 
+- name: Template Apache Virtual Hosts Config
+  become: true
+  ansible.builtin.template:
+    src: virtual-hosts.conf
+    dest: /etc/httpd/conf.d/virtual-hosts.conf
+  notify: Restart httpd
+
 - name: Start Apache
   become: true
   ansible.builtin.service:
