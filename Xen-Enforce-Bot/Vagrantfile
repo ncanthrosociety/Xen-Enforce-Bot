@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, inline: <<-SHELL
     set -xeuo pipefail
     yum install -y python python-pip
-    pip install ansible~=2.10.3
+    pip install ansible==2.10.3 ansible-base==2.10.3
     ansible-galaxy install -r /usr/local/xen-enforce-bot/Xen-Enforce-Bot/playbooks/requirements.yml
   SHELL
 
