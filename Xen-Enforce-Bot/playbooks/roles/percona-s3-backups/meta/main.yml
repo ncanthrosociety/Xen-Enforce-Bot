@@ -1,0 +1,7 @@
+galaxy_info:
+  author: Faelan Galanti
+  description: Configure Percona XtraDB Cluster Backups to AWS S3
+  company: NCAS
+  min_ansible_version: 2.1
+  galaxy_tags: []
+dependencies: []

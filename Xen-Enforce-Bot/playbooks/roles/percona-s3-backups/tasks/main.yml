@@ -1,0 +1,115 @@
+---
+
+- name: Check for the AWS CLI
+  ansible.builtin.stat:
+    path: /usr/local/bin/aws
+  register: aws_cli_check
+
+- name: Check the CLI Version
+  when: aws_cli_check.stat.exists
+  command: aws --version
+  register: aws_cli_version_check
+  changed_when: false
+
+- when: not aws_cli_check.stat.exists or (aws_cli_version_check.stdout.split(' ')[0].split('/')[1] | default('')) != percona_aws_cli_version
+  block:
+
+    - name: Download the AWS CLI
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: "{{ percona_aws_cli_url }}"
+        dest: /tmp
+
+    - name: Install the AWS CLI
+      become: true
+      command: /tmp/aws/install {{ '--update' if aws_cli_check.stat.exists else '' }}
+
+    - name: Remove Temp Dir
+      ansible.builtin.file:
+        path: /tmp/aws
+        state: absent
+
+# If v1 is installed... we don't want it. Everything else is for v2.
+- name: Uninstall AWS CLI Version 1 Library
+  become: true
+  ansible.builtin.pip:
+    name: awscli
+    state: absent
+
+- name: Remove AWS CLI Version 1 Binaries
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /bin/aws
+    - /usr/bin/aws
+
+- name: Create AWS Config Dir for ansible_user
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.aws"
+    state: directory
+    mode: 0700
+
+- name: Template AWS Config Files for ansible_user
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.aws/{{ item }}"
+    mode: 0700
+  with_items:
+    - config
+    - credentials
+
+- name: Create AWS Config Dir for root
+  become: true
+  ansible.builtin.file:
+    path: "/root/.aws"
+    state: directory
+    mode: 0700
+
+- name: Template AWS Config Files for root
+  become: true
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "/root/.aws/{{ item }}"
+    mode: 0700
+  with_items:
+    - config
+    - credentials
+
+- name: Create Backup Directories
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /backups
+    - /backups/scripts
+
+- name: Template Backup Scripts
+  become: true
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /backups/scripts
+    mode: 0700
+  with_items:
+    - common.sh
+    - create-backup.sh
+    - restore-backup.sh
+
+- name: Template Backup Key File
+  become: true
+  ansible.builtin.template:
+    src: key
+    dest: /backups
+    mode: 0700
+
+# {weekday: 3, hour: 0} =>  Wednesdays at midnight.
+- name: Schedule Backup Cron Job
+  become: true
+  ansible.builtin.cron:
+    user: root
+    name: MySQL Backup
+    weekday: "3"
+    hour: "0"
+    job: /backups/scripts/create-backup.sh
