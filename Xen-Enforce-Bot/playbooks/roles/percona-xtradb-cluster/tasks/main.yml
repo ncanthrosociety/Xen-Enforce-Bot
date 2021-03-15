@@ -78,6 +78,7 @@
     mode: 0600
   with_items:
     - encryption.cnf
+    - root.cnf
     - tls.cnf
     - wsrep.cnf
   notify: Restart MySQL

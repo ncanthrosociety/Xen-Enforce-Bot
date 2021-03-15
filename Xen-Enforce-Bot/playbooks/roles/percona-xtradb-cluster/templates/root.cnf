@@ -1,0 +1,3 @@
+[client]
+user=root
+password={{ percona_mysql_password }}
