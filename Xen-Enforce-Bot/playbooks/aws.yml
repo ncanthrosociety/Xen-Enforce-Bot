@@ -15,7 +15,9 @@
       include_role:
         name: percona-xtradb-cluster
 
-    # TODO Configure S3 Backups
+    - name: Configure S3 Backups
+      include_role:
+        name: percona-s3-backups
 
     - name: Deploy Xen Enforce Bot
       include_role:
