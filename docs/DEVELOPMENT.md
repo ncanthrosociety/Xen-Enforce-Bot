@@ -4,17 +4,17 @@
 
 1. [Dependencies](#dependencies)
 2. [CAPTCHA](#captcha)
-  1. [hCaptcha](#hcaptcha)
-  2. [reCAPTCHA](#recaptcha)
+   1. [hCaptcha](#hcaptcha)
+   2. [reCAPTCHA](#recaptcha)
 3. [Telegram Bot](#telegram-bot)
 4. [Deploying](#deploying)
-  1. [Deploying Manually](#deploying-manually)
-  2. [Deploying on Vagrant](#deploying-on-vagrant)
-  3. [Deploying With Ansible](#deploying-with-ansible)
+   1. [Deploying Manually](#deploying-manually)
+   2. [Deploying on Vagrant](#deploying-on-vagrant)
+   3. [Deploying With Ansible](#deploying-with-ansible)
 5. [Management](#management)
 6. [Backups](#backups)
-  1. [Creating a Database Backup](#creating-a-database-backup)
-  2. [Restoring a Database Backup](#restoring-a-database-backup)
+   1. [Creating a Database Backup](#creating-a-database-backup)
+   2. [Restoring a Database Backup](#restoring-a-database-backup)
 
 ## Dependencies
 
@@ -58,8 +58,8 @@ key with [@botfather](https://t.me/botfather).
 
 1. Sign up for an account and log in.
 2. On the dashboard, click `+ New Site`.
-  - Give the site a distinct name.
-  - Add the hostname that your bot will be deployed at, if known.
+   - Give the site a distinct name.
+   - Add the hostname that your bot will be deployed at, if known.
 3. Click `Save`.
 4. Next to the site you just created, click `Settings`.
 5. Stash the site key in a password manager. You'll need it later.
@@ -73,11 +73,11 @@ reCAPTCH is a free captcha service provided by Google.
 1. Sign up for a Google account and log in.
 2. Go to the [reCAPTCHA Admin Portal](https://www.google.com/recaptcha/admin).
 3. Click the `+` button to create a new site.
-  - Give the site a distinct label.
-  - Select `reCAPTCHA v2` and select `"I'm not a robot" Checkbox`.
-  - Add the domain that your bot will be deployed at, if known.
-  - Accept the terms of service.
-  - Click `Submit`.
+   - Give the site a distinct label.
+   - Select `reCAPTCHA v2` and select `"I'm not a robot" Checkbox`.
+   - Add the domain that your bot will be deployed at, if known.
+   - Accept the terms of service.
+   - Click `Submit`.
 4. Stash the site key and secret key in a password manager. You'll need them
    later.
 
