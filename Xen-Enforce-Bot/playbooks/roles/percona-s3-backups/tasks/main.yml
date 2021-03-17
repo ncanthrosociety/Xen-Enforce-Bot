@@ -104,12 +104,16 @@
     dest: /backups
     mode: 0700
 
-# {weekday: 3, hour: 0} =>  Wednesdays at midnight.
+# {minute: 0, hour: 0, day: *, month: *, weekday: 3} =>  Wednesdays at midnight.
+# https://crontab.guru/#0_0_*_*_3
 - name: Schedule Backup Cron Job
   become: true
   ansible.builtin.cron:
     user: root
     name: MySQL Backup
-    weekday: "3"
+    minute: "0"
     hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "3"
     job: /backups/scripts/create-backup.sh

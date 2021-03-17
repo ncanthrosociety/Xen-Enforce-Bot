@@ -22,9 +22,15 @@
   args:
     creates: /etc/letsencrypt/live/{{ certbot_domain }}
 
+# {minute: 0, hour: 0,12, day: *, month: *, weekday: *} => At midnight and noon.
+# https://crontab.guru/#0_0,12_*_*_*
 - name: Configure Certbot Renewal Cron Job
   become: true
   ansible.builtin.cron:
     name: Renew Certs
+    minute: "0"
     hour: "0,12"
+    day: "*"
+    month: "*"
+    weekday: "*"
     job: certbot renew --no-self-upgrade
