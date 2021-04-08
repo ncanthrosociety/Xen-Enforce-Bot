@@ -357,3 +357,6 @@ MigrationBackup/
 
 # Other
 *.pem
+
+# Ansible files.
+*vault.yml
