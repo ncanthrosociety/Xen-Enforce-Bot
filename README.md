@@ -17,6 +17,7 @@ Here's a list of available filter names:
 * `kicknoicons` | Will kick somebody who joins with no icons in their profile.
 * `phraseban` | Xenfbot contains a list of common spam phrases bots will say. These phrases are very specific, and if it bans for it, it's likely that you copy-pasted botspam. Again, i'm not here to dictate your chats for you, just to stop bots. This feature is disabled by default, you must explicitly enable it.
 * `verifymute` | Mutes a user until they complete verification.
+* `dontdeletejoinmessage` | Leaves the user join message when cleaning up.
 
 Some other configuration commands:
 
