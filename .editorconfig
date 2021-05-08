@@ -1,0 +1,21 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# Remove the line below if you want to inherit .editorconfig settings from higher directories
+root = true
+
+# C# files
+[*.cs]
+
+#### Core EditorConfig Options ####
+
+# It seems this is standard for .NET Roslyn compiler platform, and is what other projects seem to follow.
+charset = utf-8-bom
+
+# Indentation and spacing
+indent_style = space
+indent_size = 4
+
+# New line preferences
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
