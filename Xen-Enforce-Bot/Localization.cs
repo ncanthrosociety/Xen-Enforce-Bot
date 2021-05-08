@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.IO; 
+using System.IO;
 
 namespace XenfbotDN
 {
-
-    
-
-    public class Language {
-        public string code;
+    public class Language
+    {
         public string authors;
-        public string version;
+        public string code;
         public Dictionary<string, string> data;
+        public string version;
     }
-    
 
 
     public static class Localization
@@ -25,8 +19,8 @@ namespace XenfbotDN
 
         public static void init()
         {
-            var w  = Directory.GetFiles("languages/ql", "*.ql");
-            for (int i = 0; i < w.Length; i++)
+            var w = Directory.GetFiles("languages/ql", "*.ql");
+            for (var i = 0; i < w.Length; i++)
             {
                 var lng = loadQL(w[i]);
                 Console.WriteLine($"LANGQL1 {lng.code}");
@@ -36,7 +30,7 @@ namespace XenfbotDN
 
         public static Language getLanguageInfo(string langcode)
         {
-            Language dl = languages["en"];
+            var dl = languages["en"];
             languages.TryGetValue(langcode, out dl);
             return dl;
         }
@@ -50,22 +44,17 @@ namespace XenfbotDN
 
         public static string getStringLocalized(string langcode, string path, params object[] fmtdata)
         {
-            Language dl = languages["en"];
-            Language dlEnglish = dl; 
+            var dl = languages["en"];
+            var dlEnglish = dl;
             languages.TryGetValue(langcode, out dl);
-            if (dl == null)
-                dl = dlEnglish;
+            if (dl == null) dl = dlEnglish;
 
             string LocString = null;
             dl.data.TryGetValue(path, out LocString);
-            if (LocString==null)
-            {
-                dlEnglish.data.TryGetValue(path, out LocString);
-            }
-            if (LocString==null)
-            {
+            if (LocString == null) dlEnglish.data.TryGetValue(path, out LocString);
+
+            if (LocString == null)
                 return $"[!] {path} not found in language [{langcode}] or in [en]. Please notify the developer!";
-            }
 
             return string.Format(LocString, fmtdata);
         }
@@ -86,6 +75,7 @@ namespace XenfbotDN
                     Console.WriteLine("Hit EOF no meta indicator");
                     return null;
                 }
+
                 var line = rom_contents[cline];
                 if (line.Length > 0)
                 {
@@ -94,9 +84,9 @@ namespace XenfbotDN
                         meta = true;
                         continue;
                     }
-                    var gx = rom_contents[cline].Split("\t", 2, StringSplitOptions.None);
+
+                    var gx = rom_contents[cline].Split("\t", 2);
                     if (gx.Length == 2) // check to see if the length is == 2, a bit redundant but whatever
-                    {
                         switch (gx[0])
                         {
                             case "CODE":
@@ -109,41 +99,30 @@ namespace XenfbotDN
                                 Version = gx[1];
                                 break;
                         }
-                    }
                 }
+
                 cline++;
             }
 
-            Language newLang = new Language()
-            {
-                code = Code,
-                authors = Author,
-                version = Version,
-               
-            };
+            var newLang = new Language {code = Code, authors = Author, version = Version};
             var langDict = new Dictionary<string, string>();
 
             while (cline < rom_contents.Length)
             {
                 var line = rom_contents[cline];
-                var gx = rom_contents[cline].Split("|", 2, StringSplitOptions.None);
+                var gx = rom_contents[cline].Split("|", 2);
                 if (gx.Length == 2)
                 {
                     gx[1] = gx[1].Replace("\\n", "\n");
                     langDict[gx[0]] = gx[1];
                 }
+
                 cline++;
             }
+
             newLang.data = langDict;
             Console.WriteLine("Loaded language QL for {0} version {1} by {2}", Code, Version, Author);
             return newLang;
-
         }
-
-
     }
-
-
-
-
 }

@@ -14,6 +14,7 @@
 6. [Backups](#backups)
    1. [Creating a Database Backup](#creating-a-database-backup)
    2. [Restoring a Database Backup](#restoring-a-database-backup)
+7. [Code Linting with ReSharper CLI Tools and EditorConfig](#Code-Linting-using-ReSharper-CLI-Tools-and-EditorConfig)
 
 ## Dependencies
 
@@ -102,7 +103,7 @@ captcha services and Telegram.
 
 To bring up the Vagrant vm, run
 
-```
+```bash
 $ export xen_api_endpoint='http://127.0.0.1:8080/xen-enforce-bot/verify?actid=%s'
 $ export xen_hcaptcha_secret='<hcaptcha secret>'
 $ export xen_hcaptcha_sitekey='<hcaptcha site key>'
@@ -144,7 +145,7 @@ READMEs for each role under `Xen-Enforce-Bot/playbooks/roles`.
 
 Running the AWS playbook will look something like this:
 
-```
+```bash
 $ ansible-playbook \
     --user='<host username>' \
     --private-key='<path to host ssh key>' \
@@ -168,7 +169,6 @@ $ ansible-playbook \
     -e xen_mysql_root_password='<mysql root password>' \
     -e xen_mysql_user_password='<xen mysql user password>' \
     aws.yml
-
 ```
 
 ## Management
@@ -198,3 +198,39 @@ need to rerun Ansible to verify the configuration.
 
 To restore a backup, first download it. You can do this using the `aws s3` CLI.
 Then run `sudo /backups/scripts/restore-backup.sh <backup-file>`.
+
+## Code Linting using ReSharper CLI Tools and EditorConfig
+
+We are testing the use of ReSharper CLI Tools to lint the code and enforce a
+consistent style.  ReSharper supports the use of a `.editorconfig` file to
+specify settings.  Many IDEs also support using `.editorconfig` for specifying
+standard IDE options for code style.
+
+### ReSharper Instalation
+
+Follow instructions [here](https://www.jetbrains.com/help/resharper/ReSharper_Command_Line_Tools.html#1d48a574)
+for installation of ReSharper CLI Tools. Make sure to add the dotnet tool default
+location to your PATH env var. On Linux and WSL, this should be `$HOME/.dotnet/tools`.
+
+### ReSharper Usage
+
+If you installed ReSharper using the above instructions, use this command to run the CleanupCode
+tool from inside the project directory:
+
+`jb cleanupcode Xen-Enforce-Bot.sln`
+
+Note, ReSharper does not lint the Lua files.
+
+### ReSharper using EditorConfig
+
+As stated in the ReSharper CLI Tools docs, "ReSharper understands
+[some](https://www.jetbrains.com/help/resharper/Using_EditorConfig.html#standard) standard
+[EditorConfig](https://editorconfig.org) properties, most frequently used
+[.NET-coding-convention EditorConfig properties](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options?view=vs-2019), and provides a set of
+[custom EditorConfig properties](https://www.jetbrains.com/help/resharper/EditorConfig_Index.html),
+which allow for much more granular configuration of formatting, syntax,
+and code inspection rules..."
+
+#### VSCode EditorConfig plugin
+
+VSCode needs a plugin to support overriding user settings with EditorConfig options. The official plugin can be found [here](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig).
