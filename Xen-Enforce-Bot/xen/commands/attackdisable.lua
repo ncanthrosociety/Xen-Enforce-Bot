@@ -1,4 +1,5 @@
 ﻿COMMAND.name = "/xeattackdisable"
+-- TODO(tasonosenshi): Make command names consistent
 COMMAND.RequireAdmin = true 
 
 function COMMAND:Execute(gc,msg,VFD,doubt) 
