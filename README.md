@@ -30,7 +30,7 @@ Some other configuration commands:
 
 `/xesetverifytime <time>` | sets the time a user has to verify in minutes
 
-`/xeverify` | Reply to the join message (or any other message from the user that joined) with this command to manually verify them.
+`/xeverify` | (CURRENTLY BROKEN) Reply to the join message (or any other message from the user that joined) with this command to manually verify them.
 
 `/xeattackenable` | Enables attack mode, kicks all new joins with no prompt, will delete / cleanup all join messages from new joins.
 
