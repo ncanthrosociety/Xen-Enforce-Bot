@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿using System.IO;
 using NLua;
+
 namespace XenfbotDN.LStateLibaries
 {
     public static class File
@@ -18,8 +16,8 @@ namespace XenfbotDN.LStateLibaries
             }
             catch
             {
-
             }
+
             return ret;
         }
 
@@ -30,7 +28,7 @@ namespace XenfbotDN.LStateLibaries
 
         public static bool DirectoryExists(string path)
         {
-            return System.IO.Directory.Exists(path);
+            return Directory.Exists(path);
         }
 
         public static void Write(string path, string content)
@@ -42,7 +40,7 @@ namespace XenfbotDN.LStateLibaries
         {
             try
             {
-                return LuaUtil.stringArrayToTable(System.IO.Directory.GetFiles(path, pattern), State);
+                return LuaUtil.stringArrayToTable(Directory.GetFiles(path, pattern), State);
             }
             catch
             {

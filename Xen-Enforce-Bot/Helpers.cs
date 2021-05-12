@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
+using System.Text;
 
 namespace XenfbotDN
 {
-    static class Helpers
+    internal static class Helpers
     {
         public static int getUnixTime()
         {
-            return (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            return (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
         }
 
         public static void writeOut(string tag, string msg, params object[] data)
@@ -30,34 +27,34 @@ namespace XenfbotDN
             if (name == null)
             {
                 name = usr.first_name;
-                if (usr.last_name != null)
-                {
-                    name += " " + usr.last_name;
-                }
+                if (usr.last_name != null) name += " " + usr.last_name;
             }
-            else { name = "@" + name; }
+            else
+            {
+                name = "@" + name;
+            }
 
             return name;
         }
+
         public static string getMentionName(TGChatMember usr)
         {
-            if (usr==null)
-            {
-                return "null";
-            }
+            if (usr == null) return "null";
+
             var name = usr.user.username;
             if (name == null)
             {
                 name = usr.user.first_name;
-                if (usr.user.last_name != null)
-                {
-                    name += " " + usr.user.last_name;
-                }
+                if (usr.user.last_name != null) name += " " + usr.user.last_name;
             }
-            else { name = "@" + name; }
+            else
+            {
+                name = "@" + name;
+            }
 
             return name;
         }
+
         public static string quickFormat(ref string text, string what, string with)
         {
             return text.Replace(what, with);
@@ -75,25 +72,24 @@ namespace XenfbotDN
         {
             return Environment.StackTrace;
         }
+
         public static string writeStack(string data)
         {
             var q = Guid.NewGuid();
             var gid = q.ToString();
 
-            if (!Directory.Exists("exfs"))
-            {
-                Directory.CreateDirectory("exfs");
-            }
+            if (!Directory.Exists("exfs")) Directory.CreateDirectory("exfs");
+
             File.WriteAllText("exfs/" + gid + ".stk", data);
 
             return gid;
         }
+
         //https://stackoverflow.com/questions/11743160/how-do-i-encode-and-decode-a-base64-string
         public static string Base64Encode(string plainText)
         {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return System.Convert.ToBase64String(plainTextBytes);
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            return Convert.ToBase64String(plainTextBytes);
         }
     }
-
 }

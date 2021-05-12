@@ -1,27 +1,23 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Threading;
 using NLua;
-using System.Data;
+using XenfbotDN.LStateLibaries;
 
 namespace XenfbotDN
 {
-
-
-    class root
+    internal class root
     {
-        public static Lua LuaState;
-        public static LuaFunction callHook; 
         private const string tag = "xenfbot@boot";
+        public static Lua LuaState;
+        public static LuaFunction callHook;
         public static string botUsername;
         public static string botName;
 
-       
-        static void Main(string[] args)
-        {
 
+        private static void Main(string[] args)
+        {
             Console.WriteLine("XenfbotDN (C) XAYRGA 2020");
-    
+
             // Param check 
             if (args.Length > 0)
             {
@@ -52,17 +48,20 @@ namespace XenfbotDN
                         Environment.Exit(-1);
                     }
                 }
+
                 botUsername = me.username; // set bot username
                 botName = me.first_name; // set bot name
                 Console.WriteLine($"Hello, I'm {botName} under the handle {botUsername}");
             }
 
             /// Load SQL 
-            var initValue = SQL.Init(Config.getValue("MySQLHost"), Config.getValue("MySQLUser"), Config.getValue("MySQLPassword"), Config.getValue("MySQLDatabase"));
-            Console.WriteLine(Config.getValue("MySQLHost"), Config.getValue("MySQLUser"), Config.getValue("MySQLPassword"), Config.getValue("MySQLDatabase"));
+            var initValue = SQL.Init(Config.getValue("MySQLHost"), Config.getValue("MySQLUser"),
+                Config.getValue("MySQLPassword"), Config.getValue("MySQLDatabase"));
+            Console.WriteLine(Config.getValue("MySQLHost"), Config.getValue("MySQLUser"),
+                Config.getValue("MySQLPassword"), Config.getValue("MySQLDatabase"));
             Helpers.writeOut(tag, "Testing MySQL Interface");
             {
-                var ok = SQL.Query($"SHOW FUNCTION STATUS");
+                var ok = SQL.Query("SHOW FUNCTION STATUS");
                 var tries = 0;
                 while (ok == null)
                 {
@@ -74,6 +73,7 @@ namespace XenfbotDN
                         Console.WriteLine(SQL.getLastError());
                         Environment.Exit(-1);
                     }
+
                     Thread.Sleep(1200);
                 }
             }
@@ -82,15 +82,15 @@ namespace XenfbotDN
             /// Setup Lua State 
             LuaState = new Lua();
             LuaState.LoadCLRPackage(); // Initialize CLR for lua state 
-            LStateLibaries.File.Setup(LuaState);
-            LStateLibaries.LuaString.Setup(LuaState);
+            File.Setup(LuaState);
+            LuaString.Setup(LuaState);
             LuaState.DoString("dofile('xen/preinit.lua')");
             LuaState.DoString("import('XenfbotDN','XenfbotDN')"); // Import xenfbot namespace
             LuaState.DoString("print(Telegram)");
             LuaState.DoString("print(GroupConfiguration)");
             LuaState.DoString("dofile('xen/init.lua')");
             //LuaState.DoString("dofile('xen/hooktest.lua')");
-            callHook = (LuaFunction)LuaState["modhook.Call"];
+            callHook = (LuaFunction) LuaState["modhook.Call"];
 
 
             botRoot.Enter();
