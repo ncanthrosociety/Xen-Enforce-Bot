@@ -28,6 +28,12 @@ namespace XenfbotDN
 
         public static void processUpdates()
         {
+            // When the bot starts, lastUpdate is 0.  Telegram will return all updates from the last 24 hours.
+            // We grab the largest update_id + 1 for the next poll.  When this is called with that value, it confirms
+            // to the Telegram server that we've received all the previous updates, causing Telegram to stop returning them, effectively skipping them.
+            // In between polls, we are hoping no other updates occur, and if so then we finally set allowProcessUpdates to true.
+
+            // TODO(tasonosenshi): Write a proper startup function to call once before starting the while loop.
             var up = Telegram.getUpdates(lastUpdate);
             if (up == null)
             {
@@ -48,9 +54,11 @@ namespace XenfbotDN
                 if (allowProcessUpdates)
                 {
 #if DEBUG
-                    //Console.WriteLine(JsonConvert.SerializeObject(currentUpdate));
+                    // TODO(tasonosenshi): Use a proper logging library instead of compile time flags?
+                    // Console.WriteLine(JsonConvert.SerializeObject(currentUpdate));
 #endif
 
+                    // Why is this extra block here?
                     {
                         if (currentUpdate.message != null)
                             try
@@ -76,7 +84,7 @@ namespace XenfbotDN
             if (msg.from.is_bot) // Don't process updates from other bots
                 return;
 
-            var langcode = "en"; // default language is englsh
+            var langcode = "en"; // default language is english
             var gc = GroupConfiguration.getConfig(update.message.chat.id);
             var VFD = Verify.getVerifyData(update.message.from, update.message.chat, update.message);
             var doubt = Verify.checkDoubt(update.message.from, update.message.chat);

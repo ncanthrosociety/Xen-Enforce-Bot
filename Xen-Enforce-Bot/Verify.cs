@@ -86,7 +86,7 @@ namespace XenfbotDN
                     //Console.WriteLine($"{whenexpire} -- {Helpers.getUnixTime()}");
                     if (whenexpire < Helpers.getUnixTime()) doRemoval(user, mid, groupID, GCO, jmid);
                 }
-                else if ((notified == false) & verified)
+                else if ((notified == false) && verified)
                 {
                     doNotify(user, mid, groupID, GCO, jmid);
                 }
@@ -153,7 +153,7 @@ namespace XenfbotDN
             var
                 apiEndpoint =
                     Config.getValue(
-                        "APIEndpoint"); //-- NOTE: Capital config, gets the member from the C# state for config. 
+                        "APIEndpoint"); //-- NOTE: Capital config, gets the member from the C# state for config.
             var challengeData = Helpers.Base64Encode(user.id + chat.id.ToString());
             var actURL = Helpers.quickFormat(ref apiEndpoint, "%s", challengeData);
             var UserName = Helpers.getMentionName(user);
@@ -237,7 +237,7 @@ namespace XenfbotDN
             if (jmid != 0) Telegram.deleteMessage(thc, jmid);
 
             Telegram.kickChatMember(thc, thu, 0);
-            //Telegram.sendMessage(thc, "welcome to kicked, nobody will ever know you existed."); 
+            //Telegram.sendMessage(thc, "welcome to kicked, nobody will ever know you existed.");
             if (GCO.getBool("verifyannounce"))
             {
                 var name = Helpers.getMentionName(thm);
