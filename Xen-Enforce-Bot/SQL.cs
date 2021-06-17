@@ -3,10 +3,8 @@ using System.Data;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
-namespace XenfbotDN
-{
-    public static class SQL
-    {
+namespace XenfbotDN {
+    public static class SQL {
         private static string lastError = "0x0000000000000000 NO_ERROR";
         private static string host;
         private static string username;
@@ -14,8 +12,7 @@ namespace XenfbotDN
         private static string database;
         private static string cstring;
 
-        public static bool Init(string host1, string user1, string password1, string db1)
-        {
+        public static bool Init(string host1, string user1, string password1, string db1) {
             host = host1;
             username = user1;
             password = password1;
@@ -25,24 +22,17 @@ namespace XenfbotDN
             return true;
         }
 
-        public static string escape(string esc)
-        {
+        public static string escape(string esc) {
             return MySqlHelper.EscapeString(esc);
         }
 
-        public static DataRowCollection Query(string query)
-        {
-            try
-            {
-                using (var retl = new DataTable())
-                {
-                    using (var nc = new MySqlConnection(cstring))
-                    {
-                        using (var cmd = new MySqlCommand(query, nc))
-                        {
+        public static DataRowCollection Query(string query) {
+            try {
+                using (var retl = new DataTable()) {
+                    using (var nc = new MySqlConnection(cstring)) {
+                        using (var cmd = new MySqlCommand(query, nc)) {
                             nc.Open();
-                            using (var w = new MySqlDataAdapter(cmd))
-                            {
+                            using (var w = new MySqlDataAdapter(cmd)) {
                                 w.Fill(retl);
                             }
 
@@ -51,26 +41,19 @@ namespace XenfbotDN
                     }
                 }
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 lastError = e.ToString();
                 return null;
             }
         }
 
-        public static async Task<DataRowCollection> QueryAsync(string query)
-        {
-            try
-            {
-                using (var retl = new DataTable())
-                {
-                    using (var nc = new MySqlConnection(cstring))
-                    {
-                        using (var cmd = new MySqlCommand(query, nc))
-                        {
+        public static async Task<DataRowCollection> QueryAsync(string query) {
+            try {
+                using (var retl = new DataTable()) {
+                    using (var nc = new MySqlConnection(cstring)) {
+                        using (var cmd = new MySqlCommand(query, nc)) {
                             nc.Open();
-                            using (var w = new MySqlDataAdapter(cmd))
-                            {
+                            using (var w = new MySqlDataAdapter(cmd)) {
                                 await w.FillAsync(retl);
                             }
 
@@ -79,58 +62,46 @@ namespace XenfbotDN
                     }
                 }
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 lastError = e.ToString();
                 return null;
             }
         }
 
-        public static bool NonQuery(string query, out int rowsAffected)
-        {
-            try
-            {
-                using (var nc = new MySqlConnection(cstring))
-                {
-                    using (var cmd = new MySqlCommand(query, nc))
-                    {
+        public static bool NonQuery(string query, out int rowsAffected) {
+            try {
+                using (var nc = new MySqlConnection(cstring)) {
+                    using (var cmd = new MySqlCommand(query, nc)) {
                         nc.Open();
                         rowsAffected = cmd.ExecuteNonQuery();
                         return true;
                     }
                 }
             }
-            catch (Exception E)
-            {
+            catch (Exception E) {
                 lastError = E.ToString();
                 rowsAffected = 0;
                 return false;
             }
         }
 
-        public static async Task<bool> NonQueryAsync(string query)
-        {
-            try
-            {
-                using (var nc = new MySqlConnection(cstring))
-                {
-                    using (var cmd = new MySqlCommand(query, nc))
-                    {
+        public static async Task<bool> NonQueryAsync(string query) {
+            try {
+                using (var nc = new MySqlConnection(cstring)) {
+                    using (var cmd = new MySqlCommand(query, nc)) {
                         nc.Open();
                         await cmd.ExecuteNonQueryAsync();
                         return true;
                     }
                 }
             }
-            catch (Exception E)
-            {
+            catch (Exception E) {
                 lastError = E.ToString();
                 return false;
             }
         }
 
-        public static string getLastError()
-        {
+        public static string getLastError() {
             return lastError;
         }
     }

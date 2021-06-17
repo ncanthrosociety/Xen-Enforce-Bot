@@ -3,10 +3,8 @@ using System.Threading;
 using NLua;
 using XenfbotDN.LStateLibaries;
 
-namespace XenfbotDN
-{
-    internal class root
-    {
+namespace XenfbotDN {
+    internal class root {
         private const string tag = "xenfbot@boot";
         public static Lua LuaState;
         public static LuaFunction callHook;
@@ -14,13 +12,11 @@ namespace XenfbotDN
         public static string botName;
 
 
-        private static void Main(string[] args)
-        {
+        private static void Main(string[] args) {
             Console.WriteLine("XenfbotDN (C) XAYRGA 2020");
 
             // Param check 
-            if (args.Length > 0)
-            {
+            if (args.Length > 0) {
                 var ptg = "xenfbot@preboot";
                 Console.WriteLine("parameter check.....");
             }
@@ -36,14 +32,12 @@ namespace XenfbotDN
             {
                 var tries = 0;
                 var me = Telegram.getMe(); // Synchronous call for result.
-                while (me == null)
-                {
+                while (me == null) {
                     tries++;
                     Thread.Sleep(1200);
                     Helpers.warn("Failed. Trying again");
                     me = Telegram.getMe();
-                    if (tries > 3)
-                    {
+                    if (tries > 3) {
                         Helpers.warn("Invalid telegram API key or cannot connect to tgapi.");
                         Environment.Exit(-1);
                     }
@@ -63,12 +57,10 @@ namespace XenfbotDN
             {
                 var ok = SQL.Query("SHOW FUNCTION STATUS");
                 var tries = 0;
-                while (ok == null)
-                {
+                while (ok == null) {
                     tries++;
                     ok = SQL.Query("SHOW FUNCTION STATUS");
-                    if (tries > 3)
-                    {
+                    if (tries > 3) {
                         Helpers.warn("Cannot connect to MySQL server.");
                         Console.WriteLine(SQL.getLastError());
                         Environment.Exit(-1);

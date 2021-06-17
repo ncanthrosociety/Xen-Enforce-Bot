@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace XenfbotDN
-{
-    public class TGUser
-    {
+namespace XenfbotDN {
+    public class TGUser {
         public string first_name;
         public long id;
         public bool is_bot;
@@ -12,21 +10,18 @@ namespace XenfbotDN
         public string username;
     }
 
-    public class TGResponse
-    {
+    public class TGResponse {
         public bool ok;
         public JToken result;
     }
 
-    public class TGUpdate
-    {
+    public class TGUpdate {
         public TGMessage edited_message;
         public TGMessage message;
         public long update_id;
     }
 
-    public class TGChat
-    {
+    public class TGChat {
         public bool all_members_are_administrators;
         public string can_set_sticker_set;
         public string description;
@@ -41,19 +36,16 @@ namespace XenfbotDN
         public string type;
         public string username;
 
-        public TGMessage sendMessage(string text)
-        {
+        public TGMessage sendMessage(string text) {
             return Telegram.sendMessage(this, text);
         }
 
-        public TGMessage sendMessage(string text, string markdown)
-        {
+        public TGMessage sendMessage(string text, string markdown) {
             return Telegram.sendMessage(this, text, markdown);
         }
     }
 
-    public class TGChatMember
-    {
+    public class TGChatMember {
         public bool can_add_web_page_previews;
         public bool can_be_edited;
         public bool can_change_info;
@@ -73,39 +65,33 @@ namespace XenfbotDN
         public TGUser user;
     }
 
-    public class TGProfilePhotos
-    {
+    public class TGProfilePhotos {
         public int total_count;
     }
 
-    public class TGPhotoSize
-    {
+    public class TGPhotoSize {
         public string file_id;
         public int file_size;
         public int height;
         public int width;
     }
 
-    public class TGVideo
-    {
+    public class TGVideo {
         public string file_id;
         public string file_unique_id;
     }
 
-    public class TGVideoNote
-    {
+    public class TGVideoNote {
         public string file_id;
         public string file_unique_id;
     }
 
-    public class TGDocument
-    {
+    public class TGDocument {
         public string file_id;
         public string file_unique_id;
     }
 
-    public class TGMessage
-    {
+    public class TGMessage {
         public TGChat chat;
         public int date;
         public TGDocument document;
@@ -125,45 +111,49 @@ namespace XenfbotDN
         public TGVideo video;
         public TGVideoNote video_note;
 
-        public TGMessage replySendMessage(string text)
-        {
-            if (chat != null) return Telegram.sendMessage(chat, text);
+        public TGMessage replySendMessage(string text) {
+            if (chat != null) {
+                return Telegram.sendMessage(chat, text);
+            }
 
             Helpers.warn("[!] Tried to reply to a message that has no chat.");
             return null;
         }
 
-        public TGMessage replyLocalizedMessage(string code, string locstring, params object[] data)
-        {
+        public TGMessage replyLocalizedMessage(string code, string locstring, params object[] data) {
             var message = Localization.getStringLocalized(code, locstring, data);
-            if (chat != null) return Telegram.sendMessage(chat, message);
+            if (chat != null) {
+                return Telegram.sendMessage(chat, message);
+            }
 
             Helpers.warn("[!] Tried to reply to a message that has no chat.");
             return null;
         }
 
-        public TGMessage replyLocalizedMessage(string code, string locstring)
-        {
+        public TGMessage replyLocalizedMessage(string code, string locstring) {
             var message = Localization.getStringLocalized(code, locstring);
-            if (chat != null) return Telegram.sendMessage(chat, message);
+            if (chat != null) {
+                return Telegram.sendMessage(chat, message);
+            }
 
             Helpers.warn("[!] Tried to reply to a message that has no chat.");
             return null;
         }
 
-        public bool delete()
-        {
-            if (chat != null) return Telegram.deleteMessage(chat, this);
+        public bool delete() {
+            if (chat != null) {
+                return Telegram.deleteMessage(chat, this);
+            }
 
             Helpers.warn("[!] Tried to delete a message from a null chat.");
             return false;
         }
 
-        public bool isSenderAdmin()
-        {
+        public bool isSenderAdmin() {
             var ChatMem = Telegram.getChatMember(chat, from);
-            if (ChatMem.status == "creator" || ChatMem.status == "admin" || ChatMem.status == "administrator")
+            if (ChatMem.status == "creator" || ChatMem.status == "admin" || ChatMem.status == "administrator") {
                 return true;
+            }
 
             return false;
         }
