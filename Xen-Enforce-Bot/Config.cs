@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace XenfbotDN
-{
-    public static class Config
-    {
+namespace XenfbotDN {
+    public static class Config {
         private const string tag = "xenfbot@config";
         private static Dictionary<string, string> configuration;
 
-        public static void init(string filename)
-        {
+        public static void init(string filename) {
             configuration = new Dictionary<string, string>(); // configuration is effectively a dictionary
             string[] splitarc = {"="}; // these are the characters we're going to split at.
             if (!File.Exists(filename)) // Check to make sure the configuration file exists first
@@ -29,7 +26,9 @@ namespace XenfbotDN
                         .Split(splitarc, 2,
                             StringSplitOptions.None); // split the line at the first = , max 1 split (2 results)
                     if (gx.Length == 2) // check to see if the length is == 2, a bit redundant but whatever
+                    {
                         configuration[gx[0]] = gx[1]; // split name=value
+                    }
                 }
             }
             catch (Exception E) // catch any errors
@@ -45,7 +44,9 @@ namespace XenfbotDN
             var ok = configuration.TryGetValue(val, out retl); // check to see if it is in the dictionary
             if (!ok) // if it's not
                 // stuff the environment variable into it, if there is one
+            {
                 retl = Environment.GetEnvironmentVariable(val); // for Darl -- environment / docker support 
+            }
 
             return retl;
         }

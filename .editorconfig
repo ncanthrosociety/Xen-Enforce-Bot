@@ -19,3 +19,8 @@ indent_size = 4
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
+
+# Braces preferences
+csharp_prefer_braces = true # Dot-net option to enforce braces on everything
+resharper_brace_style = end_of_line # Resharper option to put braces at EOL instead of next line
+resharper_empty_block_style = together_same_line # If a block is empty, braces are together and at EOL instead of next line
