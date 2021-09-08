@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-
-namespace XenfbotDN {
+﻿namespace XenfbotDN {
     public class Language {
         public string authors;
         public string code;

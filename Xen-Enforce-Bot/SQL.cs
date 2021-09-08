@@ -1,9 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
-
-namespace XenfbotDN {
+﻿namespace XenfbotDN {
     public static class SQL {
         private static string lastError = "0x0000000000000000 NO_ERROR";
         private static string host;

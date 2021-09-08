@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-
-namespace XenfbotDN {
+﻿namespace XenfbotDN {
     public static class botRoot {
         private static long lastUpdate;
         private static Dictionary<long, bool> groupError = new Dictionary<long, bool>();

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-
-namespace XenfbotDN {
+﻿namespace XenfbotDN {
     public static class Config {
         private const string tag = "xenfbot@config";
         private static Dictionary<string, string> configuration;

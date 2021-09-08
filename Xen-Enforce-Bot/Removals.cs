@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace XenfbotDN {
+﻿namespace XenfbotDN {
     public static class Removals {
         public static void addIncident(TGUser user, TGChat chat, string reason) {
             var ra = 0;

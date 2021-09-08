@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using NLua;
-using XenfbotDN.LStateLibaries;
+﻿using XenfbotDN.LStateLibaries;
 
 namespace XenfbotDN {
     internal class root {

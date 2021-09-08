@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-
-namespace XenfbotDN {
+﻿namespace XenfbotDN {
     public class TGUser {
         public string first_name;
         public long id;
