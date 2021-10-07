@@ -1,4 +1,8 @@
-﻿namespace XenfbotDN {
+﻿using System;
+using System.IO;
+using System.Text;
+
+namespace XenfbotDN {
     internal static class Helpers {
         public static int getUnixTime() {
             return (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;

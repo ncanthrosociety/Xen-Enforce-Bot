@@ -1,4 +1,6 @@
-﻿namespace XenfbotDN {
+﻿using System.Data;
+
+namespace XenfbotDN {
     public static class Cleanup {
         private static readonly int delay = 30;
         private static int last;

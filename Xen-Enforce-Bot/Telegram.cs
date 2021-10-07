@@ -1,4 +1,11 @@
-﻿namespace XenfbotDN {
+﻿using System;
+using System.Collections.Specialized;
+using System.Net;
+using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace XenfbotDN {
     internal static class Telegram {
         public const string tag = "xenfbot@telegram";
         private static string APIKey;

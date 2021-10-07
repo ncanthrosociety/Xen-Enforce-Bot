@@ -1,4 +1,6 @@
-﻿namespace XenfbotDN.LStateLibaries {
+﻿using NLua;
+
+namespace XenfbotDN.LStateLibaries {
     public static class LuaString {
         private static Lua State;
 

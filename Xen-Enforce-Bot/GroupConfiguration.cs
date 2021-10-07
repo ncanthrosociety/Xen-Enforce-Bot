@@ -1,4 +1,7 @@
-﻿namespace XenfbotDN {
+﻿using System.Collections.Generic;
+using System.Data;
+
+namespace XenfbotDN {
     public static class GroupConfiguration {
         private static readonly Dictionary<long, GroupConfigurationObject> cache =
             new Dictionary<long, GroupConfigurationObject>();

@@ -1,4 +1,7 @@
-﻿namespace XenfbotDN.LStateLibaries {
+﻿using System.IO;
+using NLua;
+
+namespace XenfbotDN.LStateLibaries {
     public static class File {
         private static Lua State;
 

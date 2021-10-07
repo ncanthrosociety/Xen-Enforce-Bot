@@ -1,4 +1,6 @@
-﻿namespace XenfbotDN.LStateLibaries {
+﻿using NLua;
+
+namespace XenfbotDN.LStateLibaries {
     public static class LuaUtil {
         public static LuaTable EmptyTable(Lua state) {
             return (LuaTable) state.DoString("return {}")[0];

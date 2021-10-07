@@ -1,4 +1,7 @@
-﻿namespace XenfbotDN {
+﻿using System;
+using System.Data;
+
+namespace XenfbotDN {
     public class VerifyData {
         private readonly DataRow data;
 
