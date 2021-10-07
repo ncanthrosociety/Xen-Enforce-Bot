@@ -53,7 +53,7 @@ namespace XenfbotDN {
 
         public GroupConfigurationObject(long Gid) {
             groupID = Gid;
-        } // ugh god. 
+        } // ugh god.
 
         public object getObject(string name) {
             if (data == null) {
@@ -97,7 +97,7 @@ namespace XenfbotDN {
         public bool modify(string col, string data) {
             invalidated = true;
             var qry =
-                $"UPDATE `configs` SET `{SQL.escape(col)}`='{SQL.escape(data)}' WHERE `groupid`={groupID}"; // spooky ' 
+                $"UPDATE `configs` SET `{SQL.escape(col)}`='{SQL.escape(data)}' WHERE `groupid`={groupID}"; // spooky '
             var ra = 0;
             return SQL.NonQuery(qry, out ra);
         }
@@ -106,7 +106,7 @@ namespace XenfbotDN {
             var data = msg.text.Substring(start);
             invalidated = true;
             var qry =
-                $"UPDATE `configs` SET `{SQL.escape(col)}`='{SQL.escape(data)}' WHERE `groupid`={groupID}"; // spooky ' 
+                $"UPDATE `configs` SET `{SQL.escape(col)}`='{SQL.escape(data)}' WHERE `groupid`={groupID}"; // spooky '
             var ra = 0;
             return SQL.NonQuery(qry, out ra);
         }

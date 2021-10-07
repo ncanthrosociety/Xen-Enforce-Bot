@@ -45,7 +45,7 @@ namespace XenfbotDN {
             if (!ok) // if it's not
                 // stuff the environment variable into it, if there is one
             {
-                retl = Environment.GetEnvironmentVariable(val); // for Darl -- environment / docker support 
+                retl = Environment.GetEnvironmentVariable(val); // for Darl -- environment / docker support
             }
 
             return retl;
