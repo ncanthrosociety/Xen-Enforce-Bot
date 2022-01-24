@@ -253,11 +253,11 @@ namespace XenfbotDN {
                     var result = Encoding.UTF8.GetString(response);
                     var tree = JObject.Parse(result);
 
-                    return new TGResponse {ok = (bool) tree["ok"], result = tree["result"]};
+                    return new TGResponse { ok = (bool)tree["ok"], result = tree["result"] };
                 }
                 catch (WebException F) {
                     lastError = F.ToString();
-                    return new TGResponse {ok = false};
+                    return new TGResponse { ok = false };
                 }
             }
         }

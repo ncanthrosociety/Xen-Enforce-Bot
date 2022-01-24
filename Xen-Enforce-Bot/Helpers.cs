@@ -5,7 +5,7 @@ using System.Text;
 namespace XenfbotDN {
     internal static class Helpers {
         public static int getUnixTime() {
-            return (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            return (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
         }
 
         public static void writeOut(string tag, string msg, params object[] data) {

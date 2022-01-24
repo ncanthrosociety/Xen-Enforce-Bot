@@ -3,7 +3,7 @@
 namespace XenfbotDN.LStateLibaries {
     public static class LuaUtil {
         public static LuaTable EmptyTable(Lua state) {
-            return (LuaTable) state.DoString("return {}")[0];
+            return (LuaTable)state.DoString("return {}")[0];
         }
 
         public static LuaTable stringArrayToTable(string[] asd, Lua state) {

@@ -97,7 +97,7 @@ namespace XenfbotDN {
                 cline++;
             }
 
-            var newLang = new Language {code = Code, authors = Author, version = Version};
+            var newLang = new Language { code = Code, authors = Author, version = Version };
             var langDict = new Dictionary<string, string>();
 
             while (cline < rom_contents.Length) {

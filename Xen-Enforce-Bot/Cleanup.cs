@@ -16,11 +16,11 @@ namespace XenfbotDN {
             var data = SQL.Query("SELECT * FROM `cleanup`");
             if (data != null) {
                 foreach (DataRow dr in data) {
-                    var GCO = GroupConfiguration.getConfig((long) dr["group"]);
+                    var GCO = GroupConfiguration.getConfig((long)dr["group"]);
 
-                    if ((int) dr["when"] + (int) dr["life"] < Helpers.getUnixTime()) {
-                        Telegram.deleteMessage(new TGChat {id = (long) dr["group"]}, (long) dr["mid"]);
-                        var qry = $"DELETE FROM `cleanup` WHERE `uid`={(long) dr["uid"]}";
+                    if ((int)dr["when"] + (int)dr["life"] < Helpers.getUnixTime()) {
+                        Telegram.deleteMessage(new TGChat { id = (long)dr["group"] }, (long)dr["mid"]);
+                        var qry = $"DELETE FROM `cleanup` WHERE `uid`={(long)dr["uid"]}";
                         var ra = 0;
                         SQL.NonQuery(qry, out ra);
                     }

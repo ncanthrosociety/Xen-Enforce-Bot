@@ -9,7 +9,7 @@ namespace XenfbotDN {
 
         public static void init(string filename) {
             configuration = new Dictionary<string, string>(); // configuration is effectively a dictionary
-            string[] splitarc = {"="}; // these are the characters we're going to split at.
+            string[] splitarc = { "=" }; // these are the characters we're going to split at.
             if (!File.Exists(filename)) // Check to make sure the configuration file exists first
             {
                 Helpers.writeOut(tag,

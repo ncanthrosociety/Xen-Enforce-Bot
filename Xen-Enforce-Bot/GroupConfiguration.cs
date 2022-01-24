@@ -73,7 +73,7 @@ namespace XenfbotDN {
         }
 
         public string getString(string name) {
-            return (string) getObject(name);
+            return (string)getObject(name);
         }
 
         public bool getBool(string name) {
@@ -82,7 +82,7 @@ namespace XenfbotDN {
                 return false;
             }
 
-            return (bool) odata;
+            return (bool)odata;
         }
 
         public int getInt(string name) {
@@ -91,7 +91,7 @@ namespace XenfbotDN {
                 return 0;
             }
 
-            return (int) odata;
+            return (int)odata;
         }
 
         public bool modify(string col, string data) {
