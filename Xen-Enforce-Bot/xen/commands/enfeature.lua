@@ -13,6 +13,7 @@ COMMAND.AllowedFeatures = {
 	["mediadelay"] = true,
 	["dontdeletejoinmessage"] = true
 }
+-- TODO(tasonosenshi): Remove unused smartdetect flag?
 
 function COMMAND:Execute(gc,msg,VFD,doubt, args) 
 	if (not args[1]) then 

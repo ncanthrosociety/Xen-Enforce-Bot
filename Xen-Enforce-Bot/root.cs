@@ -15,7 +15,7 @@ namespace XenfbotDN {
         private static void Main(string[] args) {
             Console.WriteLine("XenfbotDN (C) XAYRGA 2020");
 
-            // Param check 
+            // Param check
             if (args.Length > 0) {
                 var ptg = "xenfbot@preboot";
                 Console.WriteLine("parameter check.....");
@@ -48,7 +48,7 @@ namespace XenfbotDN {
                 Console.WriteLine($"Hello, I'm {botName} under the handle {botUsername}");
             }
 
-            /// Load SQL 
+            /// Load SQL
             var initValue = SQL.Init(Config.getValue("MySQLHost"), Config.getValue("MySQLUser"),
                 Config.getValue("MySQLPassword"), Config.getValue("MySQLDatabase"));
             Console.WriteLine(Config.getValue("MySQLHost"), Config.getValue("MySQLUser"),
@@ -71,9 +71,9 @@ namespace XenfbotDN {
             }
             Console.WriteLine("OK!");
 
-            /// Setup Lua State 
+            /// Setup Lua State
             LuaState = new Lua();
-            LuaState.LoadCLRPackage(); // Initialize CLR for lua state 
+            LuaState.LoadCLRPackage(); // Initialize CLR for lua state
             File.Setup(LuaState);
             LuaString.Setup(LuaState);
             LuaState.DoString("dofile('xen/preinit.lua')");
@@ -82,7 +82,7 @@ namespace XenfbotDN {
             LuaState.DoString("print(GroupConfiguration)");
             LuaState.DoString("dofile('xen/init.lua')");
             //LuaState.DoString("dofile('xen/hooktest.lua')");
-            callHook = (LuaFunction) LuaState["modhook.Call"];
+            callHook = (LuaFunction)LuaState["modhook.Call"];
 
 
             botRoot.Enter();

@@ -27,7 +27,7 @@ namespace XenfbotDN {
         }
 
         public string getString(string name) {
-            return (string) getObject(name);
+            return (string)getObject(name);
         }
 
         public bool getBool(string name) {
@@ -36,7 +36,7 @@ namespace XenfbotDN {
                 return false;
             }
 
-            return (bool) odata;
+            return (bool)odata;
         }
 
         public int getInt(string name) {
@@ -45,7 +45,7 @@ namespace XenfbotDN {
                 return 0;
             }
 
-            return (int) odata;
+            return (int)odata;
         }
 
         public long getLong(string name) {
@@ -54,7 +54,7 @@ namespace XenfbotDN {
                 return 0;
             }
 
-            return (long) odata;
+            return (long)odata;
         }
     }
 
@@ -71,14 +71,14 @@ namespace XenfbotDN {
             var data = SQL.Query("SELECT * FROM `verify` WHERE `verified`=false OR `notified`=false");
 
             foreach (DataRow row in data) {
-                var groupID = (long) row["group"];
+                var groupID = (long)row["group"];
                 var GCO = GroupConfiguration.getConfig(groupID);
-                var verified = (bool) row["verified"];
-                var notified = (bool) row["notified"];
-                var whenexpire = (int) row["texpire"];
-                var user = (long) row["user"];
-                var mid = (long) row["message"];
-                var jmid = (long) row["joinmessage"];
+                var verified = (bool)row["verified"];
+                var notified = (bool)row["notified"];
+                var whenexpire = (int)row["texpire"];
+                var user = (long)row["user"];
+                var mid = (long)row["message"];
+                var jmid = (long)row["joinmessage"];
 
                 if (verified == false) {
                     //Console.WriteLine($"{whenexpire} -- {Helpers.getUnixTime()}");
@@ -183,8 +183,8 @@ namespace XenfbotDN {
         public static void doNotify(long user, long mid, long groupID, GroupConfigurationObject GCO, long jmid) {
             var ra = 0;
             SQL.NonQuery($"UPDATE `verify` SET notified=TRUE WHERE `user`={user} AND `group`={groupID}", out ra);
-            var thc = new TGChat {id = groupID};
-            var thu = new TGUser {id = user};
+            var thc = new TGChat { id = groupID };
+            var thu = new TGUser { id = user };
             var thm = Telegram.getChatMember(thc, thu);
             var deleteJMID = GCO.getBool("dontdeletejoinmessage");
             if (mid != 0) {
@@ -209,7 +209,7 @@ namespace XenfbotDN {
                     sendMsg = sendMsg.Replace("%NAME", name);
                 }
 
-                var msg = Telegram.sendMessage(new TGChat {id = groupID}, sendMsg, "HTML");
+                var msg = Telegram.sendMessage(new TGChat { id = groupID }, sendMsg, "HTML");
                 Cleanup.addMessage(msg);
             }
         }
@@ -224,11 +224,11 @@ namespace XenfbotDN {
 
         public static void doRemoval(long user, long mid, long groupID, GroupConfigurationObject GCO, long jmid) {
             var ra = 0;
-            Removals.addIncident(new TGUser {id = user}, new TGChat {id = groupID}, "VERIFYEXPIRE");
+            Removals.addIncident(new TGUser { id = user }, new TGChat { id = groupID }, "VERIFYEXPIRE");
             SQL.NonQuery($"DELETE FROM `verify` WHERE `user`={user} AND `group`={groupID}", out ra);
             root.callHook.Call("verUserRemoved", user, mid, groupID, GCO, false);
-            var thc = new TGChat {id = groupID};
-            var thu = new TGUser {id = user};
+            var thc = new TGChat { id = groupID };
+            var thu = new TGUser { id = user };
             var thm = Telegram.getChatMember(thc, thu);
             if (mid != 0) {
                 Telegram.deleteMessage(thc, mid);
@@ -243,7 +243,7 @@ namespace XenfbotDN {
             if (GCO.getBool("verifyannounce")) {
                 var name = Helpers.getMentionName(thm);
                 var sendMsg = Localization.getStringLocalized(GCO.getString("language"), "verify/userKicked", name);
-                var msg = Telegram.sendMessage(new TGChat {id = groupID}, sendMsg);
+                var msg = Telegram.sendMessage(new TGChat { id = groupID }, sendMsg);
                 Cleanup.addMessage(msg);
             }
         }
@@ -252,10 +252,10 @@ namespace XenfbotDN {
             var ra = 0;
             SQL.NonQuery($"DELETE FROM `verify` WHERE `user`={user} AND `group`={groupID}", out ra);
             SQL.NonQuery($"INSERT INTO `verify_doubt` (`user`,`group`) VALUES({user},{groupID})", out ra);
-            Removals.addIncident(new TGUser {id = user}, new TGChat {id = groupID}, "VERIFYEXPIRE");
+            Removals.addIncident(new TGUser { id = user }, new TGChat { id = groupID }, "VERIFYEXPIRE");
             root.callHook.Call("verUserRemoved", user, mid, groupID, GCO, true);
-            var thc = new TGChat {id = groupID};
-            var thu = new TGUser {id = user};
+            var thc = new TGChat { id = groupID };
+            var thu = new TGUser { id = user };
             var thm = Telegram.getChatMember(thc, thu);
             if (mid != 0) {
                 Telegram.deleteMessage(thc, mid);
@@ -270,7 +270,7 @@ namespace XenfbotDN {
                 var name = Helpers.getMentionName(thm);
                 var sendMsg =
                     Localization.getStringLocalized(GCO.getString("language"), "verify/userKickedDoubt", name);
-                var msg = Telegram.sendMessage(new TGChat {id = groupID}, sendMsg);
+                var msg = Telegram.sendMessage(new TGChat { id = groupID }, sendMsg);
                 Cleanup.addMessage(msg);
             }
         }
