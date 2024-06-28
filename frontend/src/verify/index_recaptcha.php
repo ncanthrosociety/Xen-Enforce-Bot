@@ -2,7 +2,7 @@
 	define('USE_DATABASE',1);
 	include 'databank.php';
 
-		$sitekey = "{{ xen_hcaptcha_sitekey }}";
+	$sitekey = getenv("XEN_RECAPTCHA_SITEKEY");
 
 		if (isset($_GET['success'])) {
 			$success = $_GET['success'];
@@ -52,8 +52,8 @@ die();
 <html>
 	<head>
 
-		<link rel="stylesheet" type="text/css" href="xga.breathe.css">
-		<link rel="stylesheet" type="text/css" href="xga.nav.css">
+		<link rel="stylesheet" type="text/css" href="css/xga.breathe.css">
+		<link rel="stylesheet" type="text/css" href="css/xga.nav.css">
 			<!-- Bootstrap core CSS -->
 
 
@@ -61,11 +61,10 @@ die();
 		<script src="https://code.jquery.com/jquery-1.7.2.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-		<script src='https://www.hCaptcha.com/1/api.js' async defer></script>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 		<meta name="viewport" content="height=device-height initial-scale=1.0">
-
 		<!-- Custom styles for this template -->
 
 
@@ -84,12 +83,11 @@ die();
 
 		<center>
 			  <div class="w3-display-middle w3-text-white">
-			  <form action="verify.php" method="post">
+			  <form action="verify_recaptcha.php" method="post">
 					<img src="/xen-enforce-bot/xenflogo.png" class="w3-animate-top"  height="150" width="150">
 					<h1 class="w3-animate-top">Xenforce</h1>
 					<p class="w3-center">Xenforce protects your telegram groups against bots and other kinds of trouble.</p>
 					<hr class="w3-border-grey" style="margin:auto;width:40%">
-
 					<?php
 
 						if ($actid == "!!NONE3!!") {
@@ -118,12 +116,13 @@ die();
 					?>
 
 
-					<p class="w3-center">The group you've attempted to join is protected by Xenforce.</p>
+					<p class="w3-center">The group you've attempted to join is protected by XEnforce.</p>
 					<p class="w3-center">You must complete the verification below, or you'll be removed from the group.</p>
 
 
 					<p class="w3-large w3-center">Please verify that you're human.</p>
-					<div class="h-captcha" data-sitekey="<?php echo $sitekey?>"</div>
+					<div class="g-recaptcha" data-sitekey="<?php echo $sitekey?>"></div>
+
 					  <input type="submit" class="w3-button w3-large w3-white" value="Verify me!">
 					<?php
 						echo(' <input type="hidden" id="actid" name="actid" value="' . $actid . '"> ');
@@ -133,8 +132,6 @@ die();
 						}
 
 					?>
-					<br>
-					<a href="index_recaptcha.php?actid=<?php echo $actid?>">Use Google Recaptcha instead</a>
 				</form>
 			  </div>
 		</center>

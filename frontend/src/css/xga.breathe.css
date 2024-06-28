@@ -1,0 +1,11 @@
+html {
+    animation: 7s infinite alternate ease-out breathing-color--dark;
+
+    background-color: black;
+}
+
+@keyframes breathing-color--dark {
+    from { background-color: black; }
+
+    to { background-color: #110000; }
+}

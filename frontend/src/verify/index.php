@@ -2,7 +2,7 @@
 	define('USE_DATABASE',1);
 	include 'databank.php';
 
-		$sitekey = "{{ xen_hcaptcha_sitekey }}";
+		$sitekey = getenv("XEN_HCAPTCHA_SITEKEY");
 
 		if (isset($_GET['success'])) {
 			$success = $_GET['success'];
@@ -52,8 +52,8 @@ die();
 <html>
 	<head>
 
-		<link rel="stylesheet" type="text/css" href="xga.breathe.css">
-		<link rel="stylesheet" type="text/css" href="xga.nav.css">
+		<link rel="stylesheet" type="text/css" href="css/xga.breathe.css">
+		<link rel="stylesheet" type="text/css" href="css/xga.nav.css">
 			<!-- Bootstrap core CSS -->
 
 
@@ -61,7 +61,7 @@ die();
 		<script src="https://code.jquery.com/jquery-1.7.2.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-		<script src='https://www.hCaptcha.com/1/api.js' async defer></script>
+		<script src=' https://js.hcaptcha.com/1/api.js' async defer></script>
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 		<meta name="viewport" content="height=device-height initial-scale=1.0">
@@ -85,7 +85,7 @@ die();
 		<center>
 			  <div class="w3-display-middle w3-text-white">
 			  <form action="verify.php" method="post">
-					<img src="/xen-enforce-bot/xenflogo.png" class="w3-animate-top"  height="150" width="150">
+					<img src="/xenflogo.png" class="w3-animate-top"  height="150" width="150">
 					<h1 class="w3-animate-top">Xenforce</h1>
 					<p class="w3-center">Xenforce protects your telegram groups against bots and other kinds of trouble.</p>
 					<hr class="w3-border-grey" style="margin:auto;width:40%">
