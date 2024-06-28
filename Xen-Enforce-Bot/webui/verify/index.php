@@ -58,10 +58,10 @@ die();
 
 
 			<!-- Custom fonts for this template -->
-		<script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+		<script src="https://code.jquery.com/jquery-1.7.2.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-		<script src='https://www.hCaptcha.com/1/api.js' async defer></script>
+		<script src='https://js.hcaptcha.com/1/api.js' async defer></script>
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 		<meta name="viewport" content="height=device-height initial-scale=1.0">
