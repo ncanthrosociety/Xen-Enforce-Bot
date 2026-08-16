@@ -5,29 +5,20 @@ services:
     image: nginx:1.23-alpine
     restart: unless-stopped
     env_file: .env
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    environment:
+      - VIRTUAL_HOST=$DOMAIN
+      - LETSENCRYPT_HOST=$DOMAIN
+      - LETSENCRYPT_EMAIL=$ADMIN_EMAIL
     volumes:
       - ./frontend/src:/var/www/html/
       - ./logs/nginx:/var/log/nginx/
       - ./infrastructure/nginx/default.conf:/etc/nginx/conf.d/default.conf
-    ports:
-      - "8080:80"
-      - "8443:443"
+    expose:
+      - "80"
     networks:
-    - xenbot
-  
-  # certbot:
-  #   depends_on:
-  #     - nginx
-  #   image: certbot/certbot
-  #   container_name: certbot
-  #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-  #   volumes:
-  #     - ./certbot/conf/:/etc/letsencrypt
-  #     - ./certbot/logs/:/var/log/letsencrypt
-  #     - ./certbot/www:/var/www/certbot
-  #   # command: certbot --non-interactive --apache --agree-tos -m '{{ certbot_email }}' --domains '{{ certbot_domain }}' --redirect
-  
+      - xenbot
+      - nginx-proxy
+
   php:
     restart: unless-stopped
     env_file: .env
@@ -45,6 +36,8 @@ services:
       - MYSQL_CLIENT_CERT=$MYSQL_CLIENT_CERT
       - XEN_RECAPTCHA_SITEKEY=$XEN_RECAPTCHA_SITEKEY
       - XEN_RECAPTCHA_SECRET=$XEN_RECAPTCHA_SECRET
+      - XEN_HCAPTCHA_SITEKEY=$XEN_HCAPTCHA_SITEKEY
+      - XEN_HCAPTCHA_SECRET=$XEN_HCAPTCHA_SECRET
     depends_on:
       - database
     volumes:
@@ -79,6 +72,15 @@ services:
   xen-enforce-bot:
     restart: unless-stopped
     env_file: .env
+    environment:
+      - TGAPIKey=$TGAPIKey
+      - MySQLHost=$MySQLHost
+      - MySQLUser=$MySQLUser
+      - MySQLPassword=$MySQLPassword
+      - MySQLDatabase=$MySQLDatabase
+      - APIEndpoint=$APIEndpoint
+    depends_on:
+      - database
     networks:
       - xenbot
     build:
@@ -93,8 +95,8 @@ networks:
     # external: true
     name: xenbot_default
     driver: bridge
+  nginx-proxy:
+    external: true
 
 volumes:
-  certbot-etc:
-  wordpress:
   dbdata:

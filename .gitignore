@@ -387,3 +387,18 @@ MigrationBackup/
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
+
+### Xen-Enforce-Bot docker runtime ###
+# docker-compose bind-mounts these; keep the directories/placeholders
+# tracked so a fresh clone works out of the box, but ignore real runtime
+# content dropped into them.
+!logs/
+logs/*
+!logs/.gitkeep
+!logs/php.log
+!logs/nginx/
+logs/nginx/*
+!logs/nginx/.gitkeep
+
+certs/*
+!certs/.gitkeep

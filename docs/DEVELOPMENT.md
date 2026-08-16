@@ -10,6 +10,7 @@
 4. [Deploying](#deploying)
    1. [Deploying on Vagrant](#deploying-on-vagrant)
    2. [Deploying With Ansible](#deploying-with-ansible)
+   3. [Deploying With Docker Compose](#deploying-with-docker-compose)
 5. [Management](#management)
 6. [Backups](#backups)
    1. [Creating a Database Backup](#creating-a-database-backup)
@@ -170,6 +171,39 @@ $ ansible-playbook \
     -e xen_mysql_user_password='<xen mysql user password>' \
     aws.yml
 ```
+
+### Deploying With Docker Compose
+
+`docker-compose.yaml` at the repo root runs the whole stack in containers:
+`nginx` (serves the PHP verify webui), `php` (php-fpm), `database`
+(Percona XtraDB Cluster, MySQL-compatible), and `xen-enforce-bot` (the
+.NET bot itself).
+
+This assumes an external reverse proxy is already running on the host and
+terminating TLS -- specifically an
+[`nginx-proxy`](https://github.com/nginx-proxy/nginx-proxy) +
+[`acme-companion`](https://github.com/nginx-proxy/acme-companion) stack,
+the same convention this org uses for other services (e.g. `taiga-board`).
+This stack's own `nginx` service doesn't publish port 80/443 to the
+host; it advertises itself to the proxy over a shared Docker network via
+`VIRTUAL_HOST`/`LETSENCRYPT_HOST`/`LETSENCRYPT_EMAIL`. Bring that proxy
+stack up first, with a Docker network named `nginx-proxy`, before starting
+this one.
+
+1. `cp .env.example .env` and fill in real values. Read the comments in
+   that file carefully -- the database username, password, and database
+   name each have to be duplicated under several *different* variable
+   names, because the .NET bot, the PHP webui, and the MySQL-compatible
+   database image each read their own naming convention (e.g. the DB
+   password is `MYSQL_USER_PASSWORD` for the PHP webui, `MySQLPassword`
+   for the bot, and `MYSQL_PASSWORD` for the database container). They must
+   all hold the same value or the services won't be able to authenticate
+   to each other.
+2. Set `DOMAIN` to the public hostname this bot's verify page will be
+   served at, and `APIEndpoint` to `https://<that domain>/verify?actid=%s`.
+3. Bring the stack up: `docker compose up -d --build`.
+4. `docker compose logs xen-enforce-bot` should show it connecting to
+   Telegram and to the database without restart-looping.
 
 ## Management
 
