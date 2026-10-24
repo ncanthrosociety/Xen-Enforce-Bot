@@ -53,8 +53,8 @@ die();
 <html>
 	<head>
 
-		<link rel="stylesheet" type="text/css" href="css/xga.breathe.css">
-		<link rel="stylesheet" type="text/css" href="css/xga.nav.css">
+		<link rel="stylesheet" type="text/css" href="/verify/xga.breathe.css">
+		<link rel="stylesheet" type="text/css" href="/verify/xga.nav.css">
 			<!-- Bootstrap core CSS -->
 
 
@@ -85,8 +85,8 @@ die();
 
 		<center>
 			  <div class="w3-display-middle w3-text-white">
-			  <form action="verify.php" method="post">
-					<img src="/xenflogo.png" class="w3-animate-top"  height="150" width="150">
+			  <form action="/verify/verify.php" method="post">
+					<img src="/verify/xayrga.png" class="w3-animate-top"  height="150" width="150">
 					<h1 class="w3-animate-top">Xenforce</h1>
 					<p class="w3-center">Xenforce protects your telegram groups against bots and other kinds of trouble.</p>
 					<hr class="w3-border-grey" style="margin:auto;width:40%">
@@ -135,7 +135,7 @@ die();
 
 					?>
 					<br>
-					<a href="index_recaptcha.php?actid=<?php echo $actid?>">Use Google Recaptcha instead</a>
+					<a href="/verify/index_recaptcha.php?actid=<?php echo $actid?>">Use Google Recaptcha instead</a>
 				</form>
 			  </div>
 		</center>
