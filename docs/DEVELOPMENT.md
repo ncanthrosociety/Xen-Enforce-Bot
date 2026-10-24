@@ -30,7 +30,7 @@ can be used. You'll also want a domain name!
 | [Apache Server](https://httpd.apache.org/)                                                       |     2.4 | HTTP server.                      |
 | [Dotnet](https://dotnet.microsoft.com/)                                                          |     3.1 | Bot programming language.         |
 | [Percona XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) |     5.7 | MySQL compatible database server. |
-| [PHP](https://www.php.net/)                                                                      |     7.4 | UI programming language.          |
+| [PHP](https://www.php.net/)                                                                      |     8.5 | UI programming language. Docker path runs 8.5; the legacy Ansible/Amazon-Linux-2 path is capped at 8.2 (AL2's `amazon-linux-extras` has no newer PHP topic, and AL2 itself is past its own end-of-support). |
 
 Vagrant Environment: XenEnforceBot also provides a Vagrant configuration for
 local development and testing. It is known to work with the following versions.

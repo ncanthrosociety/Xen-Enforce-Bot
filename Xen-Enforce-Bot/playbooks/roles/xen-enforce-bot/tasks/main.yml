@@ -59,9 +59,9 @@
     name: https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
     state: present
 
-- name: Enable PHP 7.4
+- name: Enable PHP 8.2
   become: true
-  command: amazon-linux-extras enable php7.4
+  command: amazon-linux-extras enable php8.2
 
 - name: Install Packages
   become: true

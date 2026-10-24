@@ -66,17 +66,12 @@
         }
         else
         {
-        	if (!($stmt = $DB_OBJ->prepare("UPDATE verify SET verified=1,tverified=? WHERE challenge=?"))) {
-			    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-			    die();
-			}
-
-			if (!$stmt->bind_param("is",time(), $actid)) {
-			    echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-			    die();
-			}
-			if (!$stmt->execute()) {
-			    echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+        	try {
+				$stmt = $DB_OBJ->prepare("UPDATE verify SET verified=1,tverified=? WHERE challenge=?");
+				$stmt->bind_param("is",time(), $actid);
+				$stmt->execute();
+			} catch (mysqli_sql_exception $e) {
+			    echo "Database error: (" . $e->getCode() . ") " . $e->getMessage();
 			    die();
 			}
 

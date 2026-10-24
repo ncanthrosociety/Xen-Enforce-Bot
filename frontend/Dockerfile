@@ -1,4 +1,5 @@
-FROM php:7.4.0-fpm-alpine
+FROM php:8.5.12-fpm-alpine
 
+RUN apk upgrade --no-cache brotli-libs
 
 RUN docker-php-ext-install mysqli

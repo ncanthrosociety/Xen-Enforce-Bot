@@ -31,9 +31,12 @@
 		NULL,
 		NULL
 	);
-	$DB_OBJ->real_connect($host, $user, $password, $dbdatabase, NULL, NULL,
-                          MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT)  // TODO IF insecure ... ELSE ...
-                          or die('Failed to connect: ' . $DB_OBJ->error);
+	try {
+		$DB_OBJ->real_connect($host, $user, $password, $dbdatabase, NULL, NULL,
+                          MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT); // TODO IF insecure ... ELSE ...
+	} catch (mysqli_sql_exception $e) {
+		die('Failed to connect: ' . $e->getMessage());
+	}
 	$DB_OBJ->set_charset('utf8');
 
 ?>

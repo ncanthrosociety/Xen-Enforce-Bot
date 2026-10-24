@@ -23,9 +23,10 @@
 			if ($success!=1) {
 				$rpquery = "SELECT challenge,verified FROM `verify` WHERE challenge='$actid'";
 
-				$res = $DB_OBJ->query($rpquery);
-				if ($res==false) {
-					echo($DB_OBJ->error);
+				try {
+					$res = $DB_OBJ->query($rpquery);
+				} catch (mysqli_sql_exception $e) {
+					echo($e->getMessage());
 die();
 				}
 
