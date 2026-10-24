@@ -1,5 +1,3 @@
-version: '3.4'
-
 services:
   nginx:
     image: nginx:1.23-alpine
@@ -44,8 +42,6 @@ services:
       - ./frontend/src:/var/www/html/
       - ./certs:/etc/ssl/mysql
       - ./logs/php.log:/var/log/fpm-php.www.log
-    ports:
-      - 9000:9000
     networks:
     - xenbot
   
@@ -66,9 +62,7 @@ services:
       # - --ssl-key=/etc/ssl/mysql/certs/client-key.key
       # - --ssl=1
       # - --bind-address=0.0.0.0
-    ports:
-      - 3306:3306
-  
+
   xen-enforce-bot:
     restart: unless-stopped
     env_file: .env
