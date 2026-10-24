@@ -1,5 +1,0 @@
----
-
-percona_aws_cli_version: 2.1.30
-percona_aws_cli_url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64-{{ percona_aws_cli_version }}.zip
-percona_aws_region: us-east-1

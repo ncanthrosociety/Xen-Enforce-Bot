@@ -1,5 +1,0 @@
-[client]
-user=root
-ssl_ca={{ percona_ssl_ca }}
-ssl_cert={{ percona_ssl_client_cert }}
-ssl_key={{ percona_ssl_client_key }}

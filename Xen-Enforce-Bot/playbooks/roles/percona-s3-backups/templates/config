@@ -1,3 +1,0 @@
-[default]
-region = {{ percona_aws_region }}
-output = json
