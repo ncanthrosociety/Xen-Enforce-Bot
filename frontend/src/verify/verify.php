@@ -35,7 +35,7 @@
   {
         // $verifyResponse = file_get_contents('https://hcaptcha.com/siteverify?secret='.$secret.'&response='.$_POST['h-captcha-response'].'&remoteip='.$_SERVER['REMOTE_ADDR']);
 
-		$url = "'https://hcaptcha.com/siteverify";
+		$url = "https://hcaptcha.com/siteverify";
 
 		$curl = curl_init($url);
 		curl_setopt($curl, CURLOPT_URL, $url);
@@ -48,19 +48,13 @@
 		curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 		
 		$data = 'secret='.$secret.'&response='.$_POST['h-captcha-response'].'&remoteip='.$_SERVER['REMOTE_ADDR'];
-		echo $data;
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-		
+
 		$verifyResponse = curl_exec($curl);
 
 		if($verifyResponse === false)
 		{
-			echo 'Curl error: ' . curl_error($curl);
-			die();
-		}
-		else
-		{
-			echo 'Operation completed without any errors';
+			die('Curl error: ' . curl_error($curl));
 		}
 
 		$responseData = json_decode($verifyResponse);
