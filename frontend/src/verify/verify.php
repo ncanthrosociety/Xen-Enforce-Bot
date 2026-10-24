@@ -33,9 +33,7 @@
 
  if(isset($_POST['h-captcha-response']) && !empty($_POST['h-captcha-response']))
   {
-        // $verifyResponse = file_get_contents('https://hcaptcha.com/siteverify?secret='.$secret.'&response='.$_POST['h-captcha-response'].'&remoteip='.$_SERVER['REMOTE_ADDR']);
-
-		$url = "https://hcaptcha.com/siteverify";
+		$url = "https://api.hcaptcha.com/siteverify";
 
 		$curl = curl_init($url);
 		curl_setopt($curl, CURLOPT_URL, $url);
