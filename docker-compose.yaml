@@ -61,7 +61,6 @@ services:
       # - --ssl-cert=/etc/ssl/mysql/certs/client-cert.crt
       # - --ssl-key=/etc/ssl/mysql/certs/client-key.key
       # - --ssl=1
-      # - --bind-address=0.0.0.0
 
   xen-enforce-bot:
     restart: unless-stopped
