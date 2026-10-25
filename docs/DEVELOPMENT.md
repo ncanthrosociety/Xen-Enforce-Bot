@@ -88,31 +88,29 @@ The bot can be added to any group chat, and must have the `Delete Messages` and
 (Percona XtraDB Cluster, MySQL-compatible), and `xen-enforce-bot` (the
 .NET bot itself).
 
-This assumes an external reverse proxy is already running on the host and
-terminating TLS -- specifically an
+The Docker Compose setup assumes an external reverse proxy is already running
+on the host and terminating TLS -- specifically an
 [`nginx-proxy`](https://github.com/nginx-proxy/nginx-proxy) +
-[`acme-companion`](https://github.com/nginx-proxy/acme-companion) stack,
-the same convention this org uses for other services (e.g. `taiga-board`).
+[`acme-companion`](https://github.com/nginx-proxy/acme-companion) stack.
 This stack's own `nginx` service doesn't publish port 80/443 to the
 host; it advertises itself to the proxy over a shared Docker network via
-`VIRTUAL_HOST`/`LETSENCRYPT_HOST`/`LETSENCRYPT_EMAIL`. Bring that proxy
-stack up first, with a Docker network named `nginx-proxy`, before starting
-this one.
+`VIRTUAL_HOST`/`LETSENCRYPT_HOST`/`LETSENCRYPT_EMAIL`.
+Bring that proxy stack up first, with a Docker network named `nginx-proxy`,
+before starting this one.
 
-1. `cp .env.example .env` and fill in real values. Read the comments in
-   that file carefully -- the database username, password, and database
-   name each have to be duplicated under several *different* variable
-   names, because the .NET bot, the PHP webui, and the MySQL-compatible
-   database image each read their own naming convention (e.g. the DB
-   password is `MYSQL_USER_PASSWORD` for the PHP webui, `MySQLPassword`
-   for the bot, and `MYSQL_PASSWORD` for the database container). They must
-   all hold the same value or the services won't be able to authenticate
-   to each other.
-2. Set `DOMAIN` to the public hostname this bot's verify page will be
-   served at, and `APIEndpoint` to `https://<that domain>/verify?actid=%s`.
+1. `cp .env.example .env` and fill in real values.
+>[!IMPORTANT]
+> **Please read the comments in the example `.env` file carefully!**
+> The database username, password and database name are duplicated across different variable names due to differing naming conventions between the bot, the web UI, and the database image.
+> For example, `MYSQL_USER_PASSWORD` is the variable for the PHP web UI, `MySQLPassword` is the variable for the Telegram bot, and `MYSQL_PASSWORD` is the variable for the actual database container.
+> All values need to be the same, else the services will fail to authenticate to each other.
+2. Set the `DOMAIN` variable to the public hostname this bot's verify page 
+   will be served at. Set `APIEndpoint` to `https://${DOMAIN}/verify?actid=%s`
+   (replacing `${DOMAIN}` with the value of the `DOMAIN` variable).
 3. Bring the stack up: `docker compose up -d --build`.
-4. `docker compose logs xen-enforce-bot` should show it connecting to
-   Telegram and to the database without restart-looping.
+4. Check the bot logs using `docker compose logs xen-enforce-bot`.
+   It should show the bot connecting to Telegram and to the database
+   without restart-looping.
 
 ## Management
 
