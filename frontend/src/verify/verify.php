@@ -69,7 +69,7 @@
 				$stmt->bind_param("is",time(), $actid);
 				$stmt->execute();
 			} catch (mysqli_sql_exception $e) {
-			    echo "Database error: (" . $e->getCode() . ") " . $e->getMessage();
+			    printf("Database error: (%s) %s", $e->getCode(), $e->getMessage());
 			    die();
 			}
 
