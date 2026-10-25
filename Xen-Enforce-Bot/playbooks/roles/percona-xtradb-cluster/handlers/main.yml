@@ -1,8 +1,0 @@
----
-# handlers file for percona-xtradb-cluster
-
-- name: Restart MySQL
-  become: true
-  ansible.builtin.service:
-    name: mysql
-    state: restarted
